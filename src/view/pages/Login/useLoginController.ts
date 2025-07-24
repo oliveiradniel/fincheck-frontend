@@ -1,15 +1,16 @@
 import { useForm } from "react-hook-form";
 
-interface FormData {
-  email: string;
-  password: string;
-}
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginSchema } from "../../../app/schemas/LoginSchema";
+
+import type { UserLoginData } from "../../../@types/UserLoginData";
 
 export function useLoginController() {
-  const { handleSubmit: hookFormHandleSubmit, register } = useForm<FormData>();
+  const { handleSubmit: hookFormHandleSubmit, register } =
+    useForm<UserLoginData>({ resolver: zodResolver(LoginSchema) });
 
   const handleSubmit = hookFormHandleSubmit((data) => {
-    console.log(data);
+    console.log("chama a API com: ", data);
   });
 
   return {
