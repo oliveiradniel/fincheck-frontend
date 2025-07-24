@@ -6,8 +6,11 @@ import { LoginSchema } from "../../../app/schemas/LoginSchema";
 import type { UserLoginData } from "../../../@types/UserLoginData";
 
 export function useLoginController() {
-  const { handleSubmit: hookFormHandleSubmit, register } =
-    useForm<UserLoginData>({ resolver: zodResolver(LoginSchema) });
+  const {
+    handleSubmit: hookFormHandleSubmit,
+    register,
+    formState: { errors, isValid },
+  } = useForm<UserLoginData>({ resolver: zodResolver(LoginSchema) });
 
   const handleSubmit = hookFormHandleSubmit((data) => {
     console.log("chama a API com: ", data);
@@ -16,5 +19,7 @@ export function useLoginController() {
   return {
     handleSubmit,
     register,
+    errors,
+    isValid,
   };
 }
