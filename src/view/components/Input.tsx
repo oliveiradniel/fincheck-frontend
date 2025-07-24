@@ -1,7 +1,6 @@
 import { forwardRef, type ComponentProps } from "react";
 
-import { twMerge } from "tailwind-merge";
-import clsx from "clsx";
+import { cn } from "../../app/utils/cn";
 
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 
@@ -21,11 +20,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           ref={ref}
           name={name}
-          className={twMerge(
-            clsx(
-              "peer h-[52px] w-full rounded-lg border border-gray-400 bg-white px-3 pt-4 text-gray-800 transition-colors duration-300 ease-in-out outline-none placeholder-shown:pt-0 focus:border-gray-800",
-              error && "!border-red-500",
-            ),
+          className={cn(
+            "peer h-[52px] w-full rounded-lg border border-gray-400 bg-white px-3 pt-4 text-gray-800 transition-colors duration-300 ease-in-out outline-none placeholder-shown:pt-0 focus:border-gray-800",
+            error && "!border-red-500",
           )}
           placeholder=""
         />
