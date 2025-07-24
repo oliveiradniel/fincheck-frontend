@@ -1,6 +1,9 @@
 import z from "zod";
 
-export const LoginSchema = z.object({
+export const AuthSchema = z.object({
+  name: z
+    .string({ error: "O nome precisa ser uma string." })
+    .nonempty({ error: "O nome é obrigatório." }),
   email: z
     .email({ error: "Informe um e-mail válido." })
     .nonempty({ error: "O e-mail é obrigatório." }),

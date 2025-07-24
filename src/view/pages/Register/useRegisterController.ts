@@ -1,16 +1,18 @@
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema } from "../../../app/schemas/auth/LoginSchema";
+import { RegisterSchema } from "../../../app/schemas/auth/RegisterSchema";
 
-import type { LoginData } from "../../../@types/auth/LoginData";
+import type { RegisterData } from "../../../@types/auth/RegisterData";
 
-export function useLoginController() {
+export function useRegisterController() {
   const {
     handleSubmit: hookFormHandleSubmit,
     register,
     formState: { errors, isValid },
-  } = useForm<LoginData>({ resolver: zodResolver(LoginSchema) });
+  } = useForm<RegisterData>({
+    resolver: zodResolver(RegisterSchema),
+  });
 
   const handleSubmit = hookFormHandleSubmit((data) => {
     console.log("chama a API com: ", data);
