@@ -6,6 +6,8 @@ import { RegisterSchema } from "@/app/schemas/auth/RegisterSchema";
 
 import { authService } from "@/app/factories/makeAuthService";
 
+import { isEmptyObject } from "@/app/utils/isEmptyObject";
+
 import type { RegisterData, SignUpParams } from "@/@types/auth/Register";
 
 export function useRegisterController() {
@@ -34,7 +36,7 @@ export function useRegisterController() {
     handleSubmit,
     register,
     errors,
-    hasError: Object.keys(errors).length > 0,
+    hasError: !isEmptyObject(errors),
     isPending,
   };
 }

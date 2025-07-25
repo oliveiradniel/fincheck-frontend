@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/app/schemas/auth/LoginSchema";
 
-import type { LoginData, SignInParams } from "@/@types/auth/Login";
-import { useMutation } from "@tanstack/react-query";
 import { authService } from "@/app/factories/makeAuthService";
+
+import { isEmptyObject } from "@/app/utils/isEmptyObject";
+
+import type { LoginData, SignInParams } from "@/@types/auth/Login";
 
 export function useLoginController() {
   const {
@@ -31,7 +34,7 @@ export function useLoginController() {
     handleSubmit,
     register,
     errors,
-    hasError: Object.keys(errors).length > 0,
+    hasError: !isEmptyObject(errors),
     isPending,
   };
 }
