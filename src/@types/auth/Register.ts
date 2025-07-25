@@ -1,6 +1,6 @@
 import type z from "zod";
 
-import type { RegisterSchema } from "../../app/schemas/auth/RegisterSchema";
+import type { RegisterSchema } from "@/app/schemas/auth/RegisterSchema";
 
 import type { AccessToken } from "./AccessToken";
 

@@ -1,9 +1,9 @@
-import { useRegisterController } from "../presentation/controllers/useRegisterController";
+import { useRegisterController } from "@/view/presentation/controllers/useRegisterController";
 
-import { SessionLayout } from "../layouts/SessionLayout";
+import { SessionLayout } from "@/view/layouts/SessionLayout";
 
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
+import { Input } from "@/view/components/Input";
+import { Button } from "@/view/components/Button";
 
 export function Register() {
   const { handleSubmit, register, errors, isValid } = useRegisterController();

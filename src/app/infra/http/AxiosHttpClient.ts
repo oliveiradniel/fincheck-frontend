@@ -3,7 +3,7 @@ import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 import type {
   HttpRequestConfig,
   HttpClientInterface,
-} from "../../../@types/services/HttpClientInterface";
+} from "@/@types/services/HttpClientInterface";
 
 function mapToAxiosConfig(config?: HttpRequestConfig): AxiosRequestConfig {
   return {

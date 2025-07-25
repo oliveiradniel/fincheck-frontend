@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 
-import { cn } from "../../app/utils/cn";
+import { cn } from "@/app/utils/cn";
 
 export function Button({ className, ...props }: ComponentProps<"button">) {
   return (

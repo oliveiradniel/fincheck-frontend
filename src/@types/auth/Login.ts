@@ -1,6 +1,6 @@
 import type z from "zod";
 
-import type { LoginSchema } from "../../app/schemas/auth/LoginSchema";
+import type { LoginSchema } from "@/app/schemas/auth/LoginSchema";
 
 import type { AccessToken } from "./AccessToken";
 
