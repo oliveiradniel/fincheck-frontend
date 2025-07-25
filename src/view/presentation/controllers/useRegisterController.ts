@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import { useAuthContext } from "@/app/hook/useAuthContext";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/app/schemas/auth/RegisterSchema";
@@ -25,11 +26,14 @@ export function useRegisterController() {
     },
   });
 
+  const { createSession } = useAuthContext();
+
   const handleSubmit = hookFormHandleSubmit(async (credentials) => {
     if (isPending) return;
 
     const { accessToken } = await mutateAsync(credentials);
-    console.log(accessToken);
+
+    createSession({ accessToken });
   });
 
   return {

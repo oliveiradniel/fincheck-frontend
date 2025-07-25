@@ -1,3 +1,5 @@
+import { useAuthContext } from "@/app/hook/useAuthContext";
+
 import { Navigate, Outlet } from "react-router-dom";
 
 interface AuthGuardProps {
@@ -5,7 +7,7 @@ interface AuthGuardProps {
 }
 
 export function AuthGuard({ isPrivate }: AuthGuardProps) {
-  const signedIn = false;
+  const { signedIn } = useAuthContext();
 
   if (!signedIn && isPrivate) {
     return <Navigate to="/login" replace />;
