@@ -1,30 +1,22 @@
-import { useRegisterController } from "./useRegisterController";
+import { useLoginController } from "../presentation/controllers/useLoginController";
 
-import { SessionLayout } from "../../layouts/SessionLayout";
+import { SessionLayout } from "../layouts/SessionLayout";
 
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
+import { Input } from "../components/Input";
+import { Button } from "../components/Button";
 
-export function Register() {
-  const { handleSubmit, register, errors, isValid } = useRegisterController();
+export function Login() {
+  const { handleSubmit, register, errors, isValid } = useLoginController();
 
   return (
-    <SessionLayout type="register">
+    <SessionLayout type="login">
       <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
-        <Input
-          type="text"
-          placeholder="Nome"
-          error={errors.name?.message}
-          {...register("name")}
-        />
-
         <Input
           type="email"
           placeholder="E-mail"
           error={errors.email?.message}
           {...register("email")}
         />
-
         <Input
           type="password"
           placeholder="Senha"
@@ -33,7 +25,7 @@ export function Register() {
         />
 
         <Button type="submit" disabled={!isValid} className="mt-2">
-          Criar conta
+          Entrar
         </Button>
       </form>
     </SessionLayout>
