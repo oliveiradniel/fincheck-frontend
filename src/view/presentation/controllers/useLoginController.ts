@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "../../../app/schemas/auth/LoginSchema";
 
-import type { LoginData } from "../../../@types/auth/LoginData";
+import type { LoginData } from "../../../@types/auth/Login";
 
 export function useLoginController() {
   const {

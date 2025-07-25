@@ -2,8 +2,8 @@ import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 
 import type {
   HttpRequestConfig,
-  IHttpClient,
-} from "../../../@types/services/HttpClient";
+  HttpClientInterface,
+} from "../../../@types/services/HttpClientInterface";
 
 function mapToAxiosConfig(config?: HttpRequestConfig): AxiosRequestConfig {
   return {
@@ -12,7 +12,7 @@ function mapToAxiosConfig(config?: HttpRequestConfig): AxiosRequestConfig {
   };
 }
 
-export class AxiosHttpClient implements IHttpClient {
+export class AxiosHttpClient implements HttpClientInterface {
   private instance: AxiosInstance;
 
   constructor(baseURL: string) {
