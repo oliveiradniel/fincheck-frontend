@@ -11,7 +11,7 @@ export function useLoginController() {
   const {
     handleSubmit: hookFormHandleSubmit,
     register,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<LoginData>({ resolver: zodResolver(LoginSchema) });
 
   const { mutateAsync, isPending } = useMutation({
@@ -31,7 +31,7 @@ export function useLoginController() {
     handleSubmit,
     register,
     errors,
-    isValid,
+    hasError: Object.keys(errors).length > 0,
     isPending,
   };
 }

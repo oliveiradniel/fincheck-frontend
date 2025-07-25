@@ -12,7 +12,7 @@ export function useRegisterController() {
   const {
     handleSubmit: hookFormHandleSubmit,
     register,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<RegisterData>({
     resolver: zodResolver(RegisterSchema),
   });
@@ -34,7 +34,7 @@ export function useRegisterController() {
     handleSubmit,
     register,
     errors,
-    isValid,
+    hasError: Object.keys(errors).length > 0,
     isPending,
   };
 }

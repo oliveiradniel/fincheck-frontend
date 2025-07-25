@@ -6,7 +6,7 @@ import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
 export function Login() {
-  const { handleSubmit, register, errors, isValid, isPending } =
+  const { handleSubmit, register, errors, hasError, isPending } =
     useLoginController();
 
   return (
@@ -27,7 +27,7 @@ export function Login() {
 
         <Button
           type="submit"
-          disabled={!isValid}
+          disabled={hasError}
           isLoading={isPending}
           className="mt-2"
         >

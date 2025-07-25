@@ -6,7 +6,7 @@ import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
 export function Register() {
-  const { handleSubmit, register, errors, isValid, isPending } =
+  const { handleSubmit, register, errors, hasError, isPending } =
     useRegisterController();
 
   return (
@@ -35,7 +35,7 @@ export function Register() {
 
         <Button
           type="submit"
-          disabled={!isValid}
+          disabled={hasError}
           isLoading={isPending}
           className="mt-2"
         >
