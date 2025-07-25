@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/app/schemas/auth/LoginSchema";
 
-import type { LoginData } from "@/@types/auth/Login";
+import type { LoginData, SignInParams } from "@/@types/auth/Login";
+import { useMutation } from "@tanstack/react-query";
+import { authService } from "@/app/factories/makeAuthService";
 
 export function useLoginController() {
   const {
@@ -12,8 +14,17 @@ export function useLoginController() {
     formState: { errors, isValid },
   } = useForm<LoginData>({ resolver: zodResolver(LoginSchema) });
 
-  const handleSubmit = hookFormHandleSubmit((data) => {
-    console.log("chama a API com: ", data);
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (credentials: SignInParams) => {
+      return authService.signin(credentials);
+    },
+  });
+
+  const handleSubmit = hookFormHandleSubmit(async (credentials) => {
+    if (isPending) return;
+
+    const { accessToken } = await mutateAsync(credentials);
+    console.log(accessToken);
   });
 
   return {
@@ -21,5 +32,6 @@ export function useLoginController() {
     register,
     errors,
     isValid,
+    isPending,
   };
 }

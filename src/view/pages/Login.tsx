@@ -6,7 +6,8 @@ import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
 export function Login() {
-  const { handleSubmit, register, errors, isValid } = useLoginController();
+  const { handleSubmit, register, errors, isValid, isPending } =
+    useLoginController();
 
   return (
     <SessionLayout type="login">
@@ -24,7 +25,12 @@ export function Login() {
           {...register("password")}
         />
 
-        <Button type="submit" disabled={!isValid} className="mt-2">
+        <Button
+          type="submit"
+          disabled={!isValid}
+          isLoading={isPending}
+          className="mt-2"
+        >
           Entrar
         </Button>
       </form>

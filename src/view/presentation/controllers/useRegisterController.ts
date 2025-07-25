@@ -18,15 +18,16 @@ export function useRegisterController() {
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (data: SignUpParams) => {
-      return authService.signup(data);
+    mutationFn: async (credentials: SignUpParams) => {
+      return authService.signup(credentials);
     },
   });
 
-  const handleSubmit = hookFormHandleSubmit(async (data) => {
+  const handleSubmit = hookFormHandleSubmit(async (credentials) => {
     if (isPending) return;
 
-    await mutateAsync(data);
+    const { accessToken } = await mutateAsync(credentials);
+    console.log(accessToken);
   });
 
   return {
