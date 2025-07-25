@@ -1,5 +1,7 @@
 import axios, { type AxiosInstance } from "axios";
 
+import { env } from "../config/env";
+
 class HttpClient {
   private instance: AxiosInstance;
 
@@ -12,4 +14,4 @@ class HttpClient {
   }
 }
 
-export const httpClient = new HttpClient("http://localhost:3001").client;
+export const httpClient = new HttpClient(env.API_URL).client;
