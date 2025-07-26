@@ -9,6 +9,7 @@ import { localStorageKeys } from "@/app/config/localStorageKeys";
 
 import type { AccessToken } from "@/@types/auth/AccessToken";
 import type { User } from "@/@types/user/User";
+import { LaunchScreen } from "@/view/components/LaunchScreen";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -27,7 +28,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return !!hasStoragedAccessToken;
   });
 
-  useQuery({
+  const { isFetching } = useQuery({
     staleTime: Infinity,
     enabled: signedIn,
     queryKey: ["authenticatedUser"],
@@ -59,7 +60,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{ loggedUser, signedIn, createSession, clearSession }}
     >
-      {children}
+      <LaunchScreen isLoading={isFetching} />
+      {!isFetching && children}
     </AuthContext.Provider>
   );
 }
