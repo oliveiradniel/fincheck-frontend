@@ -1,11 +1,14 @@
 import { useCallback, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { AuthContext } from "./AuthContext";
+
+import { makeUsersService } from "@/app/factories/makeUsersService";
 
 import { localStorageKeys } from "@/app/config/localStorageKeys";
 
 import type { AccessToken } from "@/@types/auth/AccessToken";
+import type { User } from "@/@types/user/User";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -13,6 +16,8 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const queryClient = useQueryClient();
+
+  const [loggedUser, setLoggedUser] = useState({} as User);
 
   const [signedIn, setSignedIn] = useState<boolean>(() => {
     const hasStoragedAccessToken = localStorage.getItem(
@@ -22,7 +27,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return !!hasStoragedAccessToken;
   });
 
-  const createSession = useCallback(({ accessToken }: AccessToken) => {
+  useQuery({
+    staleTime: Infinity,
+    enabled: signedIn,
+    queryKey: ["authenticatedUser"],
+    queryFn: async () => {
+      const usersService = makeUsersService(clearSession);
+
+      const user = await usersService.getAuthenticatedUser();
+
+      setLoggedUser(user);
+
+      return user;
+    },
+  });
+
+  const createSession = useCallback(async ({ accessToken }: AccessToken) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
 
     setSignedIn(true);
@@ -36,7 +56,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [queryClient]);
 
   return (
-    <AuthContext.Provider value={{ createSession, clearSession, signedIn }}>
+    <AuthContext.Provider
+      value={{ loggedUser, signedIn, createSession, clearSession }}
+    >
       {children}
     </AuthContext.Provider>
   );

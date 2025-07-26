@@ -21,7 +21,7 @@ export function useRegisterController() {
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (credentials: SignUpParams) => {
+    mutationFn: (credentials: SignUpParams) => {
       return authService.signup(credentials);
     },
   });

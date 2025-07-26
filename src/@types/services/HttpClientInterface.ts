@@ -1,3 +1,5 @@
+export type ClearSession = () => void;
+
 export type HttpRequestConfig = {
   headers?: Record<string, string>;
   params?: Record<string, string | number>;

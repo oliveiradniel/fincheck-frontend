@@ -19,7 +19,7 @@ export function useLoginController() {
   } = useForm<LoginData>({ resolver: zodResolver(LoginSchema) });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (credentials: SignInParams) => {
+    mutationFn: (credentials: SignInParams) => {
       return authService.signin(credentials);
     },
   });

@@ -1,5 +1,10 @@
 import { AxiosHttpClient } from "@/app/infra/http/AxiosHttpClient";
 
-export function makeAxiosHttpClient(baseURL: string) {
-  return new AxiosHttpClient(baseURL);
+import type { ClearSession } from "@/@types/services/HttpClientInterface";
+
+export function makeAxiosHttpClient(
+  baseURL: string,
+  onClearSession?: ClearSession,
+) {
+  return new AxiosHttpClient(baseURL, onClearSession);
 }
