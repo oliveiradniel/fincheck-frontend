@@ -42,7 +42,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     },
   });
 
-  const createSession = useCallback(async ({ accessToken }: AccessToken) => {
+  const createSession = useCallback(async (accessToken: AccessToken) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
 
     setSignedIn(true);

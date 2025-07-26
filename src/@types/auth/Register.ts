@@ -8,4 +8,4 @@ export type RegisterData = z.infer<typeof RegisterSchema>;
 
 export type SignUpParams = RegisterData;
 
-export type SignUpResponse = AccessToken;
+export type SignUpResponse = { accessToken: AccessToken };

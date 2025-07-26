@@ -33,7 +33,7 @@ export function useRegisterController() {
 
     const { accessToken } = await mutateAsync(credentials);
 
-    createSession({ accessToken });
+    createSession(accessToken);
   });
 
   return {

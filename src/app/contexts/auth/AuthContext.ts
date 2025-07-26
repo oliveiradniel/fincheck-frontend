@@ -6,7 +6,7 @@ import type { User } from "@/@types/user/User";
 interface AuthContextResponse {
   loggedUser: User;
   signedIn: boolean;
-  createSession({ accessToken }: AccessToken): void;
+  createSession(accessToken: AccessToken): void;
   clearSession(): void;
 }
 

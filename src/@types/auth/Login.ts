@@ -8,4 +8,4 @@ export type LoginData = z.infer<typeof LoginSchema>;
 
 export type SignInParams = LoginData;
 
-export type SignInResponse = AccessToken;
+export type SignInResponse = { accessToken: AccessToken };
