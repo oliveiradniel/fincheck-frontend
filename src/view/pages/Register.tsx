@@ -9,6 +9,7 @@ export function Register() {
   const {
     handleSubmit,
     register,
+    requestErrorMessage,
     errors,
     hasFormError,
     hasRequestError,
@@ -28,7 +29,7 @@ export function Register() {
         <Input
           type="email"
           placeholder="E-mail"
-          error={errors.email?.message}
+          error={errors.email?.message || requestErrorMessage}
           {...register("email")}
         />
 

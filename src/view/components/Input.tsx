@@ -6,7 +6,7 @@ import { CrossCircledIcon } from "@radix-ui/react-icons";
 
 interface InputProps extends ComponentProps<"input"> {
   name: string;
-  error?: string;
+  error?: string | null;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -29,7 +29,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <label
           htmlFor={inputId}
-          className="peer-placeholder-shown: pointer-events-none absolute top-1/4 left-[13px] -translate-y-1 text-xs text-gray-700 transition-all duration-100 ease-in-out peer-placeholder-shown:top-5.5"
+          className={cn(
+            "peer-placeholder-shown: pointer-events-none absolute top-1/4 left-[13px] -translate-y-1 text-xs text-gray-700 transition-all duration-100 ease-in-out peer-placeholder-shown:top-5.5",
+            error && "top-3",
+          )}
         >
           {placeholder}
         </label>

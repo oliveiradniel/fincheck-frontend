@@ -2,6 +2,8 @@ import { useLoginController } from "@/view/presentation/controllers/useLoginCont
 
 import { SessionLayout } from "@/view/layouts/SessionLayout";
 
+import { CrossCircledIcon } from "@radix-ui/react-icons";
+
 import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
@@ -9,6 +11,7 @@ export function Login() {
   const {
     handleSubmit,
     register,
+    requestErrorMessage,
     errors,
     hasFormError,
     hasRequestError,
@@ -30,6 +33,13 @@ export function Login() {
           error={errors.password?.message}
           {...register("password")}
         />
+
+        {requestErrorMessage && (
+          <div className="flex items-center gap-2 text-red-500">
+            <CrossCircledIcon />
+            <span className="text-xs">{requestErrorMessage}</span>
+          </div>
+        )}
 
         <Button
           type="submit"
