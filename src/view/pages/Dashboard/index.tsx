@@ -1,4 +1,4 @@
-import { useAuthContext } from "@/app/hook/useAuthContext";
+import { useAuthContext } from "@/app/hooks/useAuthContext";
 
 export function Dashboard() {
   const { clearSession } = useAuthContext();

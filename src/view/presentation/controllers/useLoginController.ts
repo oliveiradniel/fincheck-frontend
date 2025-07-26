@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { useAuthContext } from "@/app/hook/useAuthContext";
+import { useAuthMutation } from "@/app/hooks/mutations/useAuthMutation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/app/schemas/auth/LoginSchema";
@@ -9,7 +8,7 @@ import { authService } from "@/app/factories/makeAuthService";
 
 import { isEmptyObject } from "@/app/utils/isEmptyObject";
 
-import type { LoginData, SignInParams } from "@/@types/auth/Login";
+import type { LoginData } from "@/@types/auth/Login";
 
 export function useLoginController() {
   const {
@@ -18,27 +17,20 @@ export function useLoginController() {
     formState: { errors },
   } = useForm<LoginData>({ resolver: zodResolver(LoginSchema) });
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: (credentials: SignInParams) => {
-      return authService.signin(credentials);
-    },
-  });
-
-  const { createSession } = useAuthContext();
+  const { mutate, isLoading, isError } = useAuthMutation();
 
   const handleSubmit = hookFormHandleSubmit(async (credentials) => {
-    if (isPending) return;
+    if (isLoading) return;
 
-    const { accessToken } = await mutateAsync(credentials);
-
-    createSession(accessToken);
+    mutate({ type: "signin", action: () => authService.signin(credentials) });
   });
 
   return {
     handleSubmit,
     register,
     errors,
-    hasError: !isEmptyObject(errors),
-    isPending,
+    hasFormError: !isEmptyObject(errors),
+    hasRequestError: isError,
+    isLoading,
   };
 }

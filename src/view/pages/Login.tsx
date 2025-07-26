@@ -6,8 +6,14 @@ import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
 export function Login() {
-  const { handleSubmit, register, errors, hasError, isPending } =
-    useLoginController();
+  const {
+    handleSubmit,
+    register,
+    errors,
+    hasFormError,
+    hasRequestError,
+    isLoading,
+  } = useLoginController();
 
   return (
     <SessionLayout type="login">
@@ -27,11 +33,11 @@ export function Login() {
 
         <Button
           type="submit"
-          disabled={hasError}
-          isLoading={isPending}
+          disabled={hasFormError}
+          isLoading={isLoading}
           className="mt-2"
         >
-          Entrar
+          {hasRequestError ? "Tentar novamente" : "Entrar"}
         </Button>
       </form>
     </SessionLayout>

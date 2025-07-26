@@ -6,8 +6,14 @@ import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
 export function Register() {
-  const { handleSubmit, register, errors, hasError, isPending } =
-    useRegisterController();
+  const {
+    handleSubmit,
+    register,
+    errors,
+    hasFormError,
+    hasRequestError,
+    isLoading,
+  } = useRegisterController();
 
   return (
     <SessionLayout type="register">
@@ -35,11 +41,11 @@ export function Register() {
 
         <Button
           type="submit"
-          disabled={hasError}
-          isLoading={isPending}
+          disabled={hasFormError}
+          isLoading={isLoading}
           className="mt-2"
         >
-          Criar conta
+          {hasRequestError ? "Tentar novamente" : "Criar conta"}
         </Button>
       </form>
     </SessionLayout>

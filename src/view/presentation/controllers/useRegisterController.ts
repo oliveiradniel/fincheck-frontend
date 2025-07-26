@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { useAuthContext } from "@/app/hook/useAuthContext";
+import { useAuthMutation } from "@/app/hooks/mutations/useAuthMutation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/app/schemas/auth/RegisterSchema";
@@ -9,7 +8,7 @@ import { authService } from "@/app/factories/makeAuthService";
 
 import { isEmptyObject } from "@/app/utils/isEmptyObject";
 
-import type { RegisterData, SignUpParams } from "@/@types/auth/Register";
+import type { RegisterData } from "@/@types/auth/Register";
 
 export function useRegisterController() {
   const {
@@ -20,27 +19,20 @@ export function useRegisterController() {
     resolver: zodResolver(RegisterSchema),
   });
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: (credentials: SignUpParams) => {
-      return authService.signup(credentials);
-    },
-  });
-
-  const { createSession } = useAuthContext();
+  const { mutate, isLoading, isError } = useAuthMutation();
 
   const handleSubmit = hookFormHandleSubmit(async (credentials) => {
-    if (isPending) return;
+    if (isLoading) return;
 
-    const { accessToken } = await mutateAsync(credentials);
-
-    createSession(accessToken);
+    mutate({ type: "signup", action: () => authService.signup(credentials) });
   });
 
   return {
     handleSubmit,
     register,
     errors,
-    hasError: !isEmptyObject(errors),
-    isPending,
+    hasFormError: !isEmptyObject(errors),
+    hasRequestError: isError,
+    isLoading,
   };
 }

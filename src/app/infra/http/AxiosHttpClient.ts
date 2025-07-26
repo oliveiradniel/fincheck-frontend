@@ -4,6 +4,8 @@ import axios, {
   type AxiosRequestConfig,
 } from "axios";
 
+import toast from "react-hot-toast";
+
 import { sleep } from "@/app/utils/sleep";
 
 import { localStorageKeys } from "@/app/config/localStorageKeys";
@@ -41,6 +43,8 @@ export class AxiosHttpClient implements HttpClientInterface {
     this.instance.interceptors.response.use(null, (error: AxiosError) => {
       if (error.response?.status === 401 && onClearSession) {
         onClearSession();
+
+        toast.error("Sua sessão expirou!");
       }
 
       return Promise.reject(error);
