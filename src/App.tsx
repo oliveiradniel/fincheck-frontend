@@ -1,17 +1,10 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 import { AuthProvider } from "./app/contexts/auth/AuthProvider";
 
 import { Router } from "./Router";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+import { queryClient } from "./lib/reactQuery";
 
 export function App() {
   return (
