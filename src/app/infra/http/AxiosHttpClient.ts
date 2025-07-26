@@ -4,6 +4,8 @@ import axios, {
   type AxiosRequestConfig,
 } from "axios";
 
+import { sleep } from "@/app/utils/sleep";
+
 import { localStorageKeys } from "@/app/config/localStorageKeys";
 
 import type {
@@ -22,8 +24,10 @@ export class AxiosHttpClient implements HttpClientInterface {
   private instance: AxiosInstance;
 
   private setAuthorizationHeader() {
-    this.instance.interceptors.request.use((config) => {
+    this.instance.interceptors.request.use(async (config) => {
       const accessToken = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
+
+      await sleep(1500);
 
       if (accessToken && config.headers) {
         config.headers.Authorization = `Bearer ${accessToken}`;
