@@ -1,8 +1,12 @@
-import { forwardRef, type ComponentProps } from "react";
+import { forwardRef, useState, type ComponentProps } from "react";
 
 import { cn } from "@/app/utils/cn";
 
-import { CrossCircledIcon } from "@radix-ui/react-icons";
+import {
+  CrossCircledIcon,
+  EyeClosedIcon,
+  EyeOpenIcon,
+} from "@radix-ui/react-icons";
 
 interface InputProps extends ComponentProps<"input"> {
   name: string;
@@ -10,8 +14,18 @@ interface InputProps extends ComponentProps<"input"> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ id, name, placeholder, error, ...props }, ref) => {
+  ({ id, name, placeholder, type, error, ...props }, ref) => {
     const inputId = id ?? name;
+
+    const [isShowPassword, setIsShowPassword] = useState(false);
+
+    const passwordType = isShowPassword ? "text" : "password";
+
+    const parsedType = type !== "password" ? type : passwordType;
+
+    function handleToggleInputType() {
+      setIsShowPassword((prevState) => !prevState);
+    }
 
     return (
       <div className="relative">
@@ -19,6 +33,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
           id={inputId}
           ref={ref}
+          type={parsedType}
           name={name}
           className={cn(
             "peer h-[52px] w-full rounded-lg border border-gray-400 bg-white px-3 pt-4 text-gray-800 transition-colors duration-300 ease-in-out outline-none placeholder-shown:pt-0 focus:border-gray-800",
@@ -26,6 +41,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           placeholder=""
         />
+
+        {type === "password" && (
+          <button
+            aria-label={isShowPassword ? "Esconder senha" : "Mostrar senha"}
+            aria-pressed={isShowPassword}
+            type="button"
+            onClick={handleToggleInputType}
+            className="absolute top-4.5 right-[13px] cursor-pointer"
+          >
+            {isShowPassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
+          </button>
+        )}
 
         <label
           htmlFor={inputId}
