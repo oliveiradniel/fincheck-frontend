@@ -1,6 +1,8 @@
 import { Logo } from "@/view/components/Logo";
 import { UserMenu } from "@/view/components/UserMenu";
+
 import { Accounts } from "./components/Accounts";
+import { Transactions } from "./components/Transactions";
 
 export function Dashboard() {
   return (
@@ -15,7 +17,9 @@ export function Dashboard() {
           <Accounts />
         </div>
 
-        <div className="w-full md:w-1/2"></div>
+        <div className="w-full md:w-1/2">
+          <Transactions />
+        </div>
       </main>
     </div>
   );
