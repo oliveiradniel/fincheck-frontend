@@ -33,7 +33,7 @@ export function Transactions() {
           </button>
         </div>
 
-        <div className="relative mt-6">
+        <div className="relative mt-6 p-3">
           <Swiper spaceBetween={6} slidesPerView={3} centeredSlides>
             <SliderNavigation />
             {MONTHS.map((month, index) => (
