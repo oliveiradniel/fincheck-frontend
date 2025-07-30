@@ -15,10 +15,11 @@ export function useAccountsController() {
   });
 
   return {
-    sliderState,
-    setSliderState,
     windowWidth,
+    sliderState,
     areValuesVisible,
+    isLoading: false,
+    setSliderState,
     onToogleValuesVisibility,
   };
 }

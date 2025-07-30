@@ -9,15 +9,16 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { cn } from "@/app/utils/cn";
 import { formatCurrency } from "@/app/utils/formatCurrency";
 
+import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
+
 import { SliderOption } from "./SliderOption";
 import { SliderNavigation } from "./SliderNavigation";
 
 import { MONTHS } from "@/app/config/constants";
-
-import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
+import { SkeletonTransaction } from "./SkeletonTransaction";
 
 export function Transactions() {
-  const { areValuesVisible } = useTransactionsController();
+  const { areValuesVisible, isLoading } = useTransactionsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
@@ -25,7 +26,8 @@ export function Transactions() {
         <div className="flex items-center justify-between">
           <button
             type="button"
-            className="flex cursor-pointer items-center gap-2"
+            disabled={isLoading}
+            className="flex cursor-pointer items-center gap-2 transition-opacity duration-300 ease-in-out disabled:cursor-default disabled:opacity-60"
           >
             <TransactionsIcon />
             <span className="text-sm font-medium tracking-[-0.5px] text-gray-800">
@@ -34,21 +36,26 @@ export function Transactions() {
             <ChevronDownIcon className="text-gray-900" />
           </button>
 
-          <button type="button">
+          <button
+            type="button"
+            disabled={isLoading}
+            className="cursor-pointer transition-opacity duration-300 ease-in-out disabled:cursor-default disabled:opacity-60"
+          >
             <FilterIcon />
           </button>
         </div>
 
         <div className="relative mt-6 p-3">
           <Swiper spaceBetween={6} slidesPerView={3} centeredSlides>
-            <SliderNavigation />
+            <SliderNavigation isDisabled={isLoading} />
             {MONTHS.map((month, index) => (
               <SwiperSlide key={month}>
                 {({ isActive }) => (
                   <SliderOption
                     index={index}
-                    isActive={isActive}
                     month={month}
+                    isActive={isActive}
+                    isDisabled={isLoading}
                   />
                 )}
               </SwiperSlide>
@@ -58,27 +65,34 @@ export function Transactions() {
       </header>
 
       <div className="mt-4 flex-1 space-y-2 overflow-y-auto">
-        {[...Array(10)].map(() => (
-          <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
-            <div className="flex flex-1 items-center gap-3">
-              <CategoryIcon type="income" />
+        {isLoading &&
+          [...Array(7)].map((_, index) => <SkeletonTransaction key={index} />)}
 
-              <div>
-                <strong className="block tracking-[-0.5px]">Almoço</strong>
-                <span className="text-sm text-gray-600">04/06/2025</span>
-              </div>
-            </div>
-
-            <span
-              className={cn(
-                "font-medium tracking-[-0.5px] text-green-800 transition-all duration-300 ease-in-out",
-                !areValuesVisible && "blur-sm",
-              )}
+        {!isLoading &&
+          [...Array(10)].map((_, index) => (
+            <div
+              key={index}
+              className="flex animate-fade-in items-center justify-between gap-4 rounded-2xl bg-white p-4"
             >
-              {formatCurrency(123)}
-            </span>
-          </div>
-        ))}
+              <div className="flex flex-1 items-center gap-3">
+                <CategoryIcon type="income" />
+
+                <div>
+                  <strong className="block tracking-[-0.5px]">Almoço</strong>
+                  <span className="text-sm text-gray-600">04/06/2025</span>
+                </div>
+              </div>
+
+              <span
+                className={cn(
+                  "font-medium tracking-[-0.5px] text-green-800 transition-all duration-300 ease-in-out",
+                  !areValuesVisible && "blur-sm",
+                )}
+              >
+                {formatCurrency(123)}
+              </span>
+            </div>
+          ))}
       </div>
     </div>
   );

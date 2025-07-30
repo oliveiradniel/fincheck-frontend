@@ -7,4 +7,25 @@
   --color-moss-green-hover: #099268;
 
   --font-dm-sans: "DM Sans", sans-serif;
+
+  --animate-fade-in: fade-in 0.3s linear;
+  --animate-skeleton: skeleton 2s infinite;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 100%;
+    }
+  }
+
+  @keyframes skeleton {
+    0% {
+      left: -30%;
+    }
+    100% {
+      left: 120%;
+    }
+  }
 }

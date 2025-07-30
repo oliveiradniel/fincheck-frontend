@@ -17,7 +17,7 @@ export function Card({ color, name, balance, type }: CardProps) {
 
   return (
     <div
-      className="flex h-[200px] flex-col justify-between rounded-2xl border-b-4 border-teal-950 bg-white p-4"
+      className="animate-fade-in relative flex h-[200px] flex-col justify-between rounded-2xl border-b-4 border-teal-950 bg-white p-4"
       style={{ borderColor: color }}
     >
       <div>
