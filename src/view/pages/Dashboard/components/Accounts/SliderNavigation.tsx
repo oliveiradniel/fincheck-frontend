@@ -18,6 +18,7 @@ export function SliderNavigation({
   return (
     <div className="flex text-white">
       <button
+        aria-label="Ver a conta bancária anterior"
         type="button"
         disabled={isBeginning || isDisabled}
         onClick={() => swiper.slidePrev()}
@@ -27,6 +28,7 @@ export function SliderNavigation({
       </button>
 
       <button
+        aria-label="Ver a conta bancária posterior"
         type="button"
         disabled={isEnd || isDisabled}
         onClick={() => swiper.slideNext()}

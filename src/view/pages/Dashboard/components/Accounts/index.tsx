@@ -17,6 +17,8 @@ import { SliderNavigation } from "./SliderNavigation";
 export function Accounts() {
   const {
     accounts,
+    hasAccounts,
+    emptyAccounts,
     windowWidth,
     sliderState,
     areValuesVisible,
@@ -30,8 +32,13 @@ export function Accounts() {
       <div className="flex flex-col text-white">
         <span className="tracking-[-0.5px]">Saldo total</span>
 
-        <div className={cn("flex items-center gap-2", isLoading && "gap-4")}>
+        <div
+          role="region"
+          aria-labelledby="sald"
+          className={cn("flex items-center gap-2", isLoading && "gap-4")}
+        >
           <strong
+            id="sald"
             className={cn(
               "text-2xl tracking-[-1px] transition-all duration-300 ease-in-out",
               (!areValuesVisible || isLoading) && "blur-sm",
@@ -44,6 +51,12 @@ export function Accounts() {
 
           {!isLoading && (
             <button
+              aria-expanded={areValuesVisible}
+              aria-label={
+                areValuesVisible
+                  ? "Esconder valores numéricos"
+                  : "Mostrar valores numéricos"
+              }
               type="button"
               disabled={isLoading}
               onClick={onToogleValuesVisibility}
@@ -62,10 +75,16 @@ export function Accounts() {
           </strong>
         )}
 
-        {!isLoading && accounts.length === 0 && <EmptyAccounts />}
+        {!isLoading && emptyAccounts && <EmptyAccounts />}
 
         <div>
           <Swiper
+            role={hasAccounts ? "list" : undefined}
+            aria-label={
+              hasAccounts
+                ? "Suas contas bancárias cadastradas"
+                : "Não há contas bancárias"
+            }
             spaceBetween={16}
             slidesPerView={windowWidth >= 500 ? 2.1 : 1.2}
             onSlideChange={(swiper) =>
@@ -75,7 +94,7 @@ export function Accounts() {
               })
             }
           >
-            {!isLoading && accounts.length > 0 && (
+            {!isLoading && hasAccounts && (
               <div
                 slot="container-start"
                 className="mb-4 flex items-center justify-between"
@@ -86,7 +105,7 @@ export function Accounts() {
 
                 <SliderNavigation
                   isBeginning={sliderState.isBeginning}
-                  isEnd={sliderState.isEnd || accounts.length <= 2}
+                  isEnd={sliderState.isEnd}
                   isDisabled={isLoading}
                 />
               </div>

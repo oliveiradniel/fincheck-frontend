@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 
@@ -9,13 +9,30 @@ export function useAccountsController() {
 
   const windowWidth = useWindowWidth();
 
+  const accounts = [1, 1, 1, 1, 1, 1];
+
+  const slidesPerScreen = windowWidth >= 500 ? 2 : 1;
+
+  const isEnd = accounts.length <= slidesPerScreen;
+
   const [sliderState, setSliderState] = useState({
     isBeginning: true,
-    isEnd: false,
+    isEnd,
   });
 
+  useEffect(() => {
+    setSliderState((prevState) => {
+      return {
+        isBeginning: prevState.isBeginning,
+        isEnd,
+      };
+    });
+  }, [isEnd]);
+
   return {
-    accounts: [],
+    accounts,
+    hasAccounts: accounts.length > 0,
+    emptyAccounts: accounts.length === 0,
     windowWidth,
     sliderState,
     areValuesVisible,

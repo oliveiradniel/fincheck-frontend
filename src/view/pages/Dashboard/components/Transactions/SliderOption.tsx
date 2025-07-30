@@ -19,6 +19,7 @@ export function SliderOption({
 
   return (
     <button
+      aria-current={isActive ? "true" : undefined}
       type="button"
       disabled={isDisabled}
       onClick={() => swiper.slideTo(index)}
