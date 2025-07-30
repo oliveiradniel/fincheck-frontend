@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { useAccountsController } from "./useAccountsController";
 
 import { cn } from "@/app/utils/cn";
@@ -13,13 +11,13 @@ import { Card } from "./Card";
 import { SliderNavigation } from "./SliderNavigation";
 
 export function Accounts() {
-  const { sliderState, setSliderState, windowWidth } = useAccountsController();
-
-  const [showSald, setShowSald] = useState(true);
-
-  function handleToggleVisibilitySald() {
-    setShowSald((prevState) => !prevState);
-  }
+  const {
+    sliderState,
+    setSliderState,
+    windowWidth,
+    areValuesVisible,
+    onToogleValuesVisibility,
+  } = useAccountsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-moss-green px-4 py-8 md:p-10">
@@ -30,7 +28,7 @@ export function Accounts() {
           <strong
             className={cn(
               "text-2xl tracking-[-1px] transition-all duration-300 ease-in-out",
-              !showSald && "blur-sm",
+              !areValuesVisible && "blur-sm",
             )}
           >
             {formatCurrency(1000)}
@@ -38,10 +36,10 @@ export function Accounts() {
 
           <button
             type="button"
-            onClick={handleToggleVisibilitySald}
+            onClick={onToogleValuesVisibility}
             className="flex h-8 w-8 cursor-pointer items-center justify-center"
           >
-            <EyeIcon open={showSald} />
+            <EyeIcon open={!areValuesVisible} />
           </button>
         </div>
       </div>

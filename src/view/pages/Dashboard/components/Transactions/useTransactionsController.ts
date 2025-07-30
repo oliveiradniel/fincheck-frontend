@@ -1,18 +1,9 @@
-import { useState } from "react";
-
-import { useWindowWidth } from "@/app/hooks/useWindowWidth";
+import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 
 export function useTransactionsController() {
-  const windowWidth = useWindowWidth();
-
-  const [sliderState, setSliderState] = useState({
-    isBeginning: true,
-    isEnd: false,
-  });
+  const { areValuesVisible } = useDashboardContext();
 
   return {
-    sliderState,
-    setSliderState,
-    windowWidth,
+    areValuesVisible,
   };
 }
