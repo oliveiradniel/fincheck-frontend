@@ -21,5 +21,6 @@ export function useAccountsController() {
     isLoading: false,
     setSliderState,
     onToogleValuesVisibility,
+    accounts: [],
   };
 }

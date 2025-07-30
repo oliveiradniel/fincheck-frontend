@@ -7,13 +7,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { EyeIcon } from "@/view/components/icons/EyeIcon";
 
-import { Card } from "./Card";
-import { SliderNavigation } from "./SliderNavigation";
 import { SkeletonCard } from "./SkeletonCard";
 import { Loader } from "@/view/components/Loader";
+import { EmptyAccounts } from "./EmptyAccounts";
+
+import { Card } from "./Card";
+import { SliderNavigation } from "./SliderNavigation";
 
 export function Accounts() {
   const {
+    accounts,
     windowWidth,
     sliderState,
     areValuesVisible,
@@ -52,6 +55,8 @@ export function Accounts() {
       </div>
 
       <div className="mt-10 flex flex-1 flex-col justify-end md:mt-0">
+        {!isLoading && accounts.length === 0 && <EmptyAccounts />}
+
         <div>
           <Swiper
             spaceBetween={16}
@@ -63,20 +68,22 @@ export function Accounts() {
               })
             }
           >
-            <div
-              slot="container-start"
-              className="mb-4 flex items-center justify-between"
-            >
-              <strong className="text-lg tracking-[-1px] text-white">
-                Minhas contas
-              </strong>
+            {accounts.length > 0 && (
+              <div
+                slot="container-start"
+                className="mb-4 flex items-center justify-between"
+              >
+                <strong className="text-lg tracking-[-1px] text-white">
+                  Minhas contas
+                </strong>
 
-              <SliderNavigation
-                isBeginning={sliderState.isBeginning}
-                isEnd={sliderState.isEnd}
-                isDisabled={isLoading}
-              />
-            </div>
+                <SliderNavigation
+                  isBeginning={sliderState.isBeginning}
+                  isEnd={sliderState.isEnd}
+                  isDisabled={isLoading}
+                />
+              </div>
+            )}
 
             {isLoading &&
               [...Array(3)].map((_, index) => (
@@ -85,27 +92,9 @@ export function Accounts() {
                 </SwiperSlide>
               ))}
 
-            {!isLoading && (
-              <>
-                <SwiperSlide>
-                  <Card
-                    color="#7950f2"
-                    name="NuBank"
-                    balance={1000.23}
-                    type="CASH"
-                  />
-                </SwiperSlide>
-
-                <SwiperSlide>
-                  <Card
-                    color="#333"
-                    name="XP"
-                    balance={1000.23}
-                    type="INVESTMENT"
-                  />
-                </SwiperSlide>
-
-                <SwiperSlide>
+            {!isLoading &&
+              accounts.map((_, index) => (
+                <SwiperSlide key={index}>
                   <Card
                     color="#0f0"
                     name="Carteira"
@@ -113,8 +102,7 @@ export function Accounts() {
                     type="CHECKING"
                   />
                 </SwiperSlide>
-              </>
-            )}
+              ))}
           </Swiper>
         </div>
       </div>
