@@ -11,14 +11,17 @@ import { formatCurrency } from "@/app/utils/formatCurrency";
 
 import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
 
+import { SkeletonTransaction } from "./SkeletonTransaction";
+import { EmptyTransactions } from "./EmptyTransactions";
+
 import { SliderOption } from "./SliderOption";
 import { SliderNavigation } from "./SliderNavigation";
 
 import { MONTHS } from "@/app/config/constants";
-import { SkeletonTransaction } from "./SkeletonTransaction";
 
 export function Transactions() {
-  const { areValuesVisible, isLoading } = useTransactionsController();
+  const { transactions, areValuesVisible, isLoading } =
+    useTransactionsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
@@ -66,10 +69,13 @@ export function Transactions() {
 
       <div className="mt-4 flex-1 space-y-2 overflow-y-auto">
         {isLoading &&
-          [...Array(7)].map((_, index) => <SkeletonTransaction key={index} />)}
+          [...Array(6)].map((_, index) => <SkeletonTransaction key={index} />)}
+
+        {!isLoading && transactions.length === 0 && <EmptyTransactions />}
 
         {!isLoading &&
-          [...Array(10)].map((_, index) => (
+          transactions.length > 0 &&
+          transactions.map((_, index) => (
             <div
               key={index}
               className="flex animate-fade-in items-center justify-between gap-4 rounded-2xl bg-white p-4"

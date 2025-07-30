@@ -3,7 +3,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 export function EmptyAccounts() {
   return (
     <>
-      <div className="mb-4">
+      <div className="mb-4 animate-fade-in">
         <strong className="text-lg tracking-[-1px] text-white">
           Minhas contas
         </strong>

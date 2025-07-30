@@ -41,6 +41,7 @@ export function Accounts() {
           </strong>
 
           {isLoading && <Loader className={"h-4 w-4"} />}
+
           {!isLoading && (
             <button
               type="button"
@@ -55,6 +56,12 @@ export function Accounts() {
       </div>
 
       <div className="mt-10 flex flex-1 flex-col justify-end md:mt-0">
+        {isLoading && (
+          <strong className="mb-4 text-lg tracking-[-1px] text-white">
+            Minhas contas
+          </strong>
+        )}
+
         {!isLoading && accounts.length === 0 && <EmptyAccounts />}
 
         <div>
@@ -68,7 +75,7 @@ export function Accounts() {
               })
             }
           >
-            {accounts.length > 0 && (
+            {!isLoading && accounts.length > 0 && (
               <div
                 slot="container-start"
                 className="mb-4 flex items-center justify-between"
@@ -79,14 +86,14 @@ export function Accounts() {
 
                 <SliderNavigation
                   isBeginning={sliderState.isBeginning}
-                  isEnd={sliderState.isEnd}
+                  isEnd={sliderState.isEnd || accounts.length <= 2}
                   isDisabled={isLoading}
                 />
               </div>
             )}
 
             {isLoading &&
-              [...Array(3)].map((_, index) => (
+              [...Array(2)].map((_, index) => (
                 <SwiperSlide key={index}>
                   <SkeletonCard />
                 </SwiperSlide>

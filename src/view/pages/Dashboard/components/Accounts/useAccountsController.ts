@@ -15,12 +15,12 @@ export function useAccountsController() {
   });
 
   return {
+    accounts: [],
     windowWidth,
     sliderState,
     areValuesVisible,
     isLoading: false,
     setSliderState,
     onToogleValuesVisibility,
-    accounts: [],
   };
 }
