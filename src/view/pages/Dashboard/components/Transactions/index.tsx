@@ -1,91 +1,28 @@
-import { useState } from "react";
-
 import { useTransactionsController } from "./useTransactionsController";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-
-import { FilterIcon } from "@/view/components/icons/FilterIcon";
-import { TransactionsIcon } from "@/view/components/icons/TransactionsIcon";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
-
-import { cn } from "@/app/utils/cn";
-import { formatCurrency } from "@/app/utils/formatCurrency";
-
-import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
 
 import { SkeletonTransaction } from "./SkeletonTransaction";
 import { EmptyTransactions } from "./EmptyTransactions";
 
-import { SliderOption } from "./SliderOption";
-import { SliderNavigation } from "./SliderNavigation";
-
-import { MONTHS } from "@/app/config/constants";
+import { TransactionTypeFilterButton } from "./TransactionTypeFilterButton";
+import { FilterButton } from "./FilterButton";
+import { MonthSlidersFilter } from "./MonthSlidersFilter";
+import { TransactionList } from "./TransactionList";
 
 export function Transactions() {
-  const {
-    transactions,
-    hasTransactions,
-    emptyTransactions,
-    areValuesVisible,
-    isLoading,
-  } = useTransactionsController();
-
-  const [isTransactionsTypeFilterVisible] = useState(false);
+  const { transactions, hasTransactions, emptyTransactions, isLoading } =
+    useTransactionsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
       <header>
         <div className="flex items-center justify-between">
-          <button
-            aria-expanded={isTransactionsTypeFilterVisible}
-            aria-label={
-              isTransactionsTypeFilterVisible
-                ? "Visualizar tipos de transação para filtro"
-                : "Ocultar tipos de transação para filtro"
-            }
-            type="button"
-            disabled={isLoading}
-            className="flex cursor-pointer items-center gap-2 transition-opacity duration-300 ease-in-out disabled:cursor-default disabled:opacity-60"
-          >
-            <TransactionsIcon />
-            <span className="text-sm font-medium tracking-[-0.5px] text-gray-800">
-              Transações
-            </span>
-            <ChevronDownIcon className="text-gray-900" />
-          </button>
+          <TransactionTypeFilterButton isDisabled={isLoading} />
 
-          <button
-            aria-label="Abrir modal para aplicar filtro"
-            type="button"
-            disabled={isLoading}
-            className="cursor-pointer transition-opacity duration-300 ease-in-out disabled:cursor-default disabled:opacity-60"
-          >
-            <FilterIcon />
-          </button>
+          <FilterButton isDisabled={isLoading} />
         </div>
 
         <div className="relative mt-6 p-3">
-          <Swiper
-            role="list"
-            aria-label="Meses disponíveis para filtro"
-            spaceBetween={6}
-            slidesPerView={3}
-            centeredSlides
-          >
-            <SliderNavigation isDisabled={isLoading} />
-            {MONTHS.map((month, index) => (
-              <SwiperSlide aria-label={month} key={month}>
-                {({ isActive }) => (
-                  <SliderOption
-                    index={index}
-                    month={month.slice(0, 3)}
-                    isActive={isActive}
-                    isDisabled={isLoading}
-                  />
-                )}
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <MonthSlidersFilter isDisabled={isLoading} />
         </div>
       </header>
 
@@ -95,39 +32,12 @@ export function Transactions() {
 
         {!isLoading && emptyTransactions && <EmptyTransactions />}
 
-        <ul
-          aria-label={
-            hasTransactions ? "Suas transações" : "Não há transacições"
-          }
-          className="space-y-2"
-        >
-          {!isLoading &&
-            hasTransactions &&
-            transactions.map((_, index) => (
-              <li
-                key={index}
-                className="flex animate-fade-in items-center justify-between gap-4 rounded-2xl bg-white p-4"
-              >
-                <div className="flex flex-1 items-center gap-3">
-                  <CategoryIcon type="income" />
-
-                  <div>
-                    <strong className="block tracking-[-0.5px]">Almoço</strong>
-                    <span className="text-sm text-gray-600">04/06/2025</span>
-                  </div>
-                </div>
-
-                <span
-                  className={cn(
-                    "font-medium tracking-[-0.5px] text-green-800 transition-all duration-300 ease-in-out",
-                    !areValuesVisible && "blur-sm",
-                  )}
-                >
-                  {formatCurrency(123)}
-                </span>
-              </li>
-            ))}
-        </ul>
+        {!isLoading && hasTransactions && (
+          <TransactionList
+            transactions={transactions}
+            hasTransactions={hasTransactions}
+          />
+        )}
       </div>
     </div>
   );
