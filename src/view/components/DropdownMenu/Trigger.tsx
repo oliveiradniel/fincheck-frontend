@@ -10,9 +10,7 @@ interface TriggerProps {
 
 export function Trigger({ children, className }: TriggerProps) {
   return (
-    <RdxDropdownMenu.Trigger
-      className={cn("cursor-pointer outline-none", className)}
-    >
+    <RdxDropdownMenu.Trigger className={cn("outline-none", className)}>
       <button className="cursor-pointer">{children}</button>
     </RdxDropdownMenu.Trigger>
   );

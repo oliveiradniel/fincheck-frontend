@@ -5,12 +5,14 @@ import { cn } from "@/app/utils/cn";
 
 interface ItemProps {
   children: React.ReactNode;
+  onSelect?(): void;
   className?: ClassValue;
 }
 
-export function Item({ children, className }: ItemProps) {
+export function Item({ children, onSelect, className }: ItemProps) {
   return (
     <RdxDropdownMenu.Item
+      onSelect={onSelect}
       className={cn(
         "flex min-h-12 cursor-pointer items-center rounded-2xl p-4 text-sm text-gray-800 transition-colors duration-300 ease-in-out outline-none data-[highlighted]:bg-moss-green/4",
         className,
