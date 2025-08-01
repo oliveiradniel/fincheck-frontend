@@ -10,8 +10,10 @@
 
   --animate-fade-in: fade-in 0.3s linear;
   --animate-skeleton: skeleton 2s infinite;
-  --animate-dropdown-menu-open: dropdown-menu-open 0.3s linear;
-  --animate-dropdown-menu-close: dropdown-menu-close 0.2s linear;
+  --animate-dropdown-menu-open-top: dropdown-menu-open-top 0.3s linear;
+  --animate-dropdown-menu-close-top: dropdown-menu-close-top 0.2s linear;
+  --animate-dropdown-menu-open-bottom: dropdown-menu-open-bottom 0.3s linear;
+  --animate-dropdown-menu-close-bottom: dropdown-menu-close-bottom 0.2s linear;
 
   @keyframes fade-in {
     0% {
@@ -31,7 +33,7 @@
     }
   }
 
-  @keyframes dropdown-menu-open {
+  @keyframes dropdown-menu-open-top {
     0% {
       opacity: 0;
       transform: translateY(-10px);
@@ -42,7 +44,7 @@
     }
   }
 
-  @keyframes dropdown-menu-close {
+  @keyframes dropdown-menu-close-top {
     0% {
       opacity: 100%;
       transform: translateY(0px);
@@ -50,6 +52,28 @@
     100% {
       opacity: 0;
       transform: translateY(-10px);
+    }
+  }
+
+  @keyframes dropdown-menu-open-bottom {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 100%;
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes dropdown-menu-close-bottom {
+    0% {
+      opacity: 100%;
+      transform: translateY(0px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(10px);
     }
   }
 }
