@@ -1,17 +1,20 @@
+import type { ComponentProps } from "react";
+
 import * as RdxDropdownMenu from "@radix-ui/react-dropdown-menu";
 
-import type { ClassValue } from "clsx";
 import { cn } from "@/app/utils/cn";
 
-interface TriggerProps {
+interface TriggerProps extends ComponentProps<"button"> {
   children: React.ReactNode;
-  className?: ClassValue;
 }
 
-export function Trigger({ children, className }: TriggerProps) {
+export function Trigger({ children, className, ...props }: TriggerProps) {
   return (
-    <RdxDropdownMenu.Trigger className={cn("outline-none", className)}>
-      <button className="cursor-pointer">{children}</button>
+    <RdxDropdownMenu.Trigger
+      {...props}
+      className={cn("outline-none", className)}
+    >
+      {children}
     </RdxDropdownMenu.Trigger>
   );
 }

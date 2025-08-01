@@ -13,7 +13,7 @@ export function Content({ children, className }: ContentProps) {
     <RdxDropdownMenu.Portal>
       <RdxDropdownMenu.Content
         className={cn(
-          "space-y-2 rounded-2xl bg-white/20 p-2 shadow-[0_11px_20px_0_rgba(0,0,0,0.1)] backdrop-blur-sm data-[state=closed]:animate-dropdown-menu-close data-[state=open]:animate-dropdown-menu-open",
+          "z-50 w-full space-y-2 rounded-2xl bg-white/20 p-2 shadow-[0_11px_20px_0_rgba(0,0,0,0.1)] backdrop-blur-sm data-[state=closed]:animate-dropdown-menu-close data-[state=open]:animate-dropdown-menu-open",
           className,
         )}
       >
