@@ -7,18 +7,31 @@ import { TransactionTypeFilterButton } from "./TransactionTypeFilterButton";
 import { FilterButton } from "./FilterButton";
 import { MonthSlidersFilter } from "./MonthSlidersFilter";
 import { TransactionList } from "./TransactionList";
+import { FiltersModal } from "./FiltersModal";
 
 export function Transactions() {
-  const { transactions, hasTransactions, emptyTransactions, isLoading } =
-    useTransactionsController();
+  const {
+    transactions,
+    hasTransactions,
+    emptyTransactions,
+    isLoading,
+    isFilteredModalOpen,
+    handleOpenFiltersModal,
+    handleCloseFiltersModal,
+  } = useTransactionsController();
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl bg-gray-100 px-4 py-8 md:p-10">
+      <FiltersModal
+        isOpen={isFilteredModalOpen}
+        onClose={handleCloseFiltersModal}
+      />
+
       <header>
         <div className="flex items-center justify-between">
           <TransactionTypeFilterButton isDisabled={isLoading} />
 
-          <FilterButton isDisabled={isLoading} />
+          <FilterButton disabled={isLoading} onClick={handleOpenFiltersModal} />
         </div>
 
         <div className="relative mt-6 p-3">
