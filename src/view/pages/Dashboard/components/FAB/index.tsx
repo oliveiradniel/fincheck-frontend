@@ -11,8 +11,6 @@ import { cn } from "@/app/utils/cn";
 export function FAB() {
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(isOpen);
-
   return (
     <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu.Trigger
@@ -29,7 +27,7 @@ export function FAB() {
         />
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Content side="bottom" className="">
+      <DropdownMenu.Content side="bottom">
         <DropdownMenu.Item className="gap-2">
           <CategoryIcon type="expense" />
           Nova Despesa

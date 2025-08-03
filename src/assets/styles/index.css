@@ -6,9 +6,12 @@
   --color-moss-green: #087f5b;
   --color-moss-green-hover: #099268;
 
+  --shadow-box: 0px 11px 20px 0px rgba(0, 0, 0, 0.1);
+
   --font-dm-sans: "DM Sans", sans-serif;
 
   --animate-fade-in: fade-in 0.3s linear;
+  --animate-fade-out: fade-out 0.2s linear;
   --animate-skeleton: skeleton 2s infinite;
   --animate-dropdown-menu-open-top: dropdown-menu-open-top 0.3s linear;
   --animate-dropdown-menu-close-top: dropdown-menu-close-top 0.2s linear;
@@ -21,6 +24,15 @@
     }
     100% {
       opacity: 100%;
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 0;
     }
   }
 

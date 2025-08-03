@@ -1,10 +1,10 @@
-import { Logo } from "@/view/components/Logo";
-import { UserMenu } from "@/view/components/UserMenu";
-
+import { FAB } from "./components/FAB";
 import { Accounts } from "./components/Accounts";
 import { Transactions } from "./components/Transactions";
 import { DashboardProvider } from "./components/DashboardContext/DashboardProvider";
-import { FAB } from "./components/FAB";
+
+import { Logo } from "@/view/components/Logo";
+import { UserMenu } from "@/view/components/UserMenu";
 
 export function Dashboard() {
   return (
