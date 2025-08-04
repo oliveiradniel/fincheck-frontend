@@ -1,14 +1,18 @@
 import { useState } from "react";
 
-import { DropdownMenu } from "@/view/components/DropdownMenu";
+import { useDashboardContext } from "../DashboardContext/useDashboardContext";
+
+import { cn } from "@/app/utils/cn";
 
 import { PlusIcon } from "@radix-ui/react-icons";
 
+import { DropdownMenu } from "@/view/components/DropdownMenu";
 import { BankAccountIcon } from "@/view/components/icons/BankAccountIcon";
 import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
-import { cn } from "@/app/utils/cn";
 
 export function FAB() {
+  const { openNewAccountModal } = useDashboardContext();
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -36,7 +40,7 @@ export function FAB() {
           <CategoryIcon type="income" />
           Nova Receita
         </DropdownMenu.Item>
-        <DropdownMenu.Item className="gap-2">
+        <DropdownMenu.Item onSelect={openNewAccountModal} className="gap-2">
           <BankAccountIcon />
           Nova Conta
         </DropdownMenu.Item>

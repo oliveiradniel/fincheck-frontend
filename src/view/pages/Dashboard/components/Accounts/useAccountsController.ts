@@ -5,11 +5,12 @@ import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 import { useWindowWidth } from "@/app/hooks/useWindowWidth";
 
 export function useAccountsController() {
-  const { areValuesVisible, onToogleValuesVisibility } = useDashboardContext();
+  const { areValuesVisible, onToogleValuesVisibility, openNewAccountModal } =
+    useDashboardContext();
 
   const windowWidth = useWindowWidth();
 
-  const accounts = [1, 1, 1, 1, 1, 1];
+  const accounts = [];
 
   const slidesPerScreen = windowWidth >= 500 ? 2 : 1;
 
@@ -39,5 +40,6 @@ export function useAccountsController() {
     isLoading: false,
     setSliderState,
     onToogleValuesVisibility,
+    openNewAccountModal,
   };
 }

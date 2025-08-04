@@ -13,6 +13,8 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     return true;
   });
 
+  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
+
   const handleToogleValuesVisibility = useCallback(() => {
     setAreValuesVisible((prevState) => {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(!prevState));
@@ -21,11 +23,22 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const openNewAccountModal = useCallback(() => {
+    setIsNewAccountModalOpen(true);
+  }, []);
+
+  const closeNewAccountModal = useCallback(() => {
+    setIsNewAccountModalOpen(false);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
         areValuesVisible,
+        isNewAccountModalOpen,
         onToogleValuesVisibility: handleToogleValuesVisibility,
+        openNewAccountModal,
+        closeNewAccountModal,
       }}
     >
       {children}

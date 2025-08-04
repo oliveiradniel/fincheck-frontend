@@ -5,7 +5,7 @@ import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 export function useTransactionsController() {
   const { areValuesVisible } = useDashboardContext();
 
-  const [isFilteredModalOpen, setIsFilteredModalOpen] = useState(true);
+  const [isFilteredModalOpen, setIsFilteredModalOpen] = useState(false);
 
   const transactions = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
