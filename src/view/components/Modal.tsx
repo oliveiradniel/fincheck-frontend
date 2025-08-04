@@ -24,7 +24,7 @@ export function Modal({
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-30 bg-black/80 backdrop-blur-xs data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 z-40 w-full max-w-[400px] -translate-x-1/2 -translate-y-1/2 space-y-10 rounded-2xl bg-white p-6 shadow-box outline-none">
+        <Dialog.Content className="fixed top-1/2 left-1/2 z-40 w-full max-w-[400px] -translate-x-1/2 -translate-y-1/2 space-y-10 rounded-2xl bg-white p-6 shadow-box outline-none data-[state=closed]:animate-scale-out data-[state=open]:animate-scale-in">
           <header className="flex h-12 items-center justify-between text-gray-800">
             <button
               type="button"

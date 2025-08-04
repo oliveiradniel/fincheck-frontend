@@ -12,11 +12,17 @@
 
   --animate-fade-in: fade-in 0.3s linear;
   --animate-fade-out: fade-out 0.2s linear;
+
   --animate-skeleton: skeleton 2s infinite;
+
   --animate-dropdown-menu-open-top: dropdown-menu-open-top 0.3s linear;
   --animate-dropdown-menu-close-top: dropdown-menu-close-top 0.2s linear;
+
   --animate-dropdown-menu-open-bottom: dropdown-menu-open-bottom 0.3s linear;
   --animate-dropdown-menu-close-bottom: dropdown-menu-close-bottom 0.2s linear;
+
+  --animate-scale-in: scale-in 0.2s linear;
+  --animate-scale-out: scale-out 0.2s linear;
 
   @keyframes fade-in {
     0% {
@@ -86,6 +92,28 @@
     100% {
       opacity: 0;
       transform: translateY(10px);
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(20%);
+    }
+    100% {
+      opacity: 100%;
+      transform: scale(100%);
+    }
+  }
+
+  @keyframes scale-out {
+    0% {
+      opacity: 100%;
+      transform: scale(100%);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(20%);
     }
   }
 }
