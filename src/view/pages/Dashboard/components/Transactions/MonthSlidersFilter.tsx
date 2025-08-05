@@ -13,6 +13,7 @@ export function MonthSlidersFilter({ isDisabled }: MonthSlidersFilterProps) {
   return (
     <Swiper
       role="list"
+      aria-live="polite"
       aria-label="Meses disponíveis para filtro"
       spaceBetween={6}
       slidesPerView={3}
@@ -24,7 +25,7 @@ export function MonthSlidersFilter({ isDisabled }: MonthSlidersFilterProps) {
           {({ isActive }) => (
             <SliderOption
               index={index}
-              month={month.slice(0, 3)}
+              month={month}
               isActive={isActive}
               isDisabled={isDisabled}
             />

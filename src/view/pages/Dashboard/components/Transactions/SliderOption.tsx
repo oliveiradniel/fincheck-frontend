@@ -19,6 +19,8 @@ export function SliderOption({
 
   return (
     <button
+      aria-label={month}
+      aria-selected={isActive}
       aria-current={isActive ? "true" : undefined}
       type="button"
       disabled={isDisabled}
@@ -30,7 +32,7 @@ export function SliderOption({
         isDisabled && "opacity-60",
       )}
     >
-      {month}
+      {month.slice(0, 3)}
     </button>
   );
 }
