@@ -1,13 +1,12 @@
+import { useState } from "react";
+
 import * as RdxSelect from "@radix-ui/react-select";
 
 import { cn } from "@/app/utils/cn";
 
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  CrossCircledIcon,
-} from "@radix-ui/react-icons";
-import { useState } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
+
+import { ErrorInputMessage } from "./ErrorInputMessage";
 
 interface SelectProps {
   options: {
@@ -35,7 +34,6 @@ export function Select({
     <div>
       <div className="relative">
         <label
-          htmlFor=""
           className={cn(
             "pointer-events-none absolute top-1/2 left-3 z-10 -translate-y-1/2 text-gray-700 transition-all duration-300 ease-in-out",
             selectedValue && "top-2 left-[13px] translate-y-0 text-xs",
@@ -46,22 +44,22 @@ export function Select({
 
         <RdxSelect.Root onValueChange={handleSelect}>
           <RdxSelect.Trigger
-            aria-label="Food"
+            aria-label="Selecione o tipo de conta"
             className={cn(
-              "relative flex h-[52px] w-full items-center rounded-lg border border-gray-400 bg-white px-3 pt-4 text-gray-800 transition-colors duration-300 ease-in-out outline-none focus:border-gray-800",
-              className,
+              "relative flex h-[52px] w-full cursor-pointer items-center rounded-lg border border-gray-400 bg-white px-3 pt-4 text-gray-800 transition-colors duration-300 ease-in-out outline-none focus:border-gray-800",
               error && "!border-red-500",
+              className,
             )}
           >
             <RdxSelect.Value />
 
-            <RdxSelect.Icon className="absolute right-3">
+            <RdxSelect.Icon className="absolute top-1/2 right-3 -translate-y-1/2">
               <ChevronDownIcon className="h-6 w-6 text-gray-800" />
             </RdxSelect.Icon>
           </RdxSelect.Trigger>
 
           <RdxSelect.Portal>
-            <RdxSelect.Content className="z-50 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-box">
+            <RdxSelect.Content className="z-50 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-box data-[state=open]:animate-fade-in">
               <RdxSelect.ScrollUpButton className="flex h-[25px] cursor-default items-center justify-center bg-white text-gray-800">
                 <ChevronUpIcon />
               </RdxSelect.ScrollUpButton>
@@ -90,12 +88,7 @@ export function Select({
         </RdxSelect.Root>
       </div>
 
-      {error && (
-        <div className="mt-2 flex items-center gap-2 text-red-500">
-          <CrossCircledIcon />
-          <span className="text-xs">{error}</span>
-        </div>
-      )}
+      {error && <ErrorInputMessage error={error} />}
     </div>
   );
 }

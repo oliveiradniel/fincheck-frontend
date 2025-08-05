@@ -2,11 +2,9 @@ import { forwardRef, useState, type ComponentProps } from "react";
 
 import { cn } from "@/app/utils/cn";
 
-import {
-  CrossCircledIcon,
-  EyeClosedIcon,
-  EyeOpenIcon,
-} from "@radix-ui/react-icons";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+
+import { ErrorInputMessage } from "./ErrorInputMessage";
 
 interface InputProps extends ComponentProps<"input"> {
   name: string;
@@ -64,12 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {placeholder}
         </label>
 
-        {error && (
-          <div className="mt-2 flex items-center gap-2 text-red-500">
-            <CrossCircledIcon />
-            <span className="text-xs">{error}</span>
-          </div>
-        )}
+        {error && <ErrorInputMessage error={error} />}
       </div>
     );
   },
