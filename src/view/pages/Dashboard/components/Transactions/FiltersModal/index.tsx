@@ -38,13 +38,15 @@ export function FiltersModal({ isOpen, onClose }: FiltersModalProps) {
           Conta
         </h2>
 
-        <div className="mt-2 space-y-2">
+        <div aria-live="polite" className="mt-2 space-y-2">
           {mockedAccounts.map(({ id, name }) => {
             const isActive = id === selectedBankAccountId;
 
             return (
               <button
                 key={id}
+                aria-label={name}
+                aria-selected={isActive}
                 type="button"
                 onClick={() => handleSelectBankAccount(id)}
                 className={cn(
@@ -59,34 +61,40 @@ export function FiltersModal({ isOpen, onClose }: FiltersModalProps) {
         </div>
       </div>
 
-      <div className="text-gray-800">
-        <h2 className="text-lg font-bold tracking-[-1px]">Ano</h2>
+      <fieldset className="text-gray-800">
+        <legend className="text-lg font-bold tracking-[-1px]">Ano</legend>
 
         <div className="mt-2 flex w-52 items-center justify-between">
           <button
+            aria-label="Diminuir um ano"
             type="button"
             disabled={selectedYear === 2025}
             onClick={() => handleChangeYear(-1)}
             className="flex h-12 w-12 items-center justify-center transition-all duration-300 ease-in-out enabled:cursor-pointer enabled:hover:-translate-x-[2px] enabled:hover:scale-101 disabled:opacity-40"
           >
-            <ChevronLeftIcon className="h-4 w-4" />
+            <ChevronLeftIcon aria-hidden="true" className="h-4 w-4" />
           </button>
 
-          <div className="flex-1 text-center">
+          <div
+            aria-live="polite"
+            aria-atomic="true"
+            className="flex-1 text-center"
+          >
             <span className="text-sm font-medium tracking-[-0.5px]">
               {selectedYear}
             </span>
           </div>
 
           <button
+            aria-label="Aumentar o ano"
             type="button"
             onClick={() => handleChangeYear(+1)}
             className="flex h-12 w-12 cursor-pointer items-center justify-center transition-transform duration-300 ease-in-out hover:-translate-x-[2px] hover:scale-101"
           >
-            <ChevronRightIcon className="h-4 w-4" />
+            <ChevronRightIcon aria-hidden="true" className="h-4 w-4" />
           </button>
         </div>
-      </div>
+      </fieldset>
 
       <Button className="w-full">Aplicar filtros</Button>
     </Modal>
