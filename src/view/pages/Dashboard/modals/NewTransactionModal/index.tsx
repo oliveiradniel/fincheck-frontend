@@ -4,6 +4,7 @@ import { Modal } from "@/view/components/Modal";
 import { InputCurrency } from "@/view/components/InputCurrency";
 import { Input } from "@/view/components/Input";
 import { Select } from "@/view/components/Select";
+import { DatePickerInput } from "@/view/components/DatePickerInput";
 
 export function NewTransactionModal() {
   const {
@@ -79,6 +80,8 @@ export function NewTransactionModal() {
               },
             ]}
           />
+
+          <DatePickerInput />
         </div>
       </form>
     </Modal>
