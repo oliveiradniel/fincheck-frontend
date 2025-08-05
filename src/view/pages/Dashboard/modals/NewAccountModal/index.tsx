@@ -13,7 +13,7 @@ export function NewAccountModal() {
   return (
     <Modal
       isOpen={isNewAccountModalOpen}
-      title="Nova conta"
+      title="Nova Conta"
       description="Criar uma nova conta"
       onClose={closeNewAccountModal}
     >
@@ -30,6 +30,7 @@ export function NewAccountModal() {
           <Input type="text" name="name" placeholder="Nome da conta" />
 
           <Select
+            placeholder="Tipo"
             options={[
               {
                 value: "CHECKING",
@@ -44,7 +45,6 @@ export function NewAccountModal() {
                 label: "Dinheiro Físico",
               },
             ]}
-            placeholder="Tipo"
           />
 
           <ColorsDropdownInput />

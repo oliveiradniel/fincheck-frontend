@@ -1,6 +1,7 @@
 import { DashboardProvider } from "./components/DashboardContext/DashboardProvider";
 
 import { NewAccountModal } from "./modals/NewAccountModal";
+import { NewTransactionModal } from "./modals/NewTransactionModal";
 
 import { FAB } from "./components/FAB";
 import { Accounts } from "./components/Accounts";
@@ -13,6 +14,7 @@ export function Dashboard() {
   return (
     <DashboardProvider>
       <NewAccountModal />
+      <NewTransactionModal />
 
       <div className="flex h-screen w-screen flex-col gap-4 p-4 md:p-8 md:pt-6">
         <header className="flex h-12 items-center justify-between">
