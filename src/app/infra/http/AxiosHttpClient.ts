@@ -29,8 +29,6 @@ export class AxiosHttpClient implements HttpClientInterface {
     this.instance.interceptors.request.use(async (config) => {
       const accessToken = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
 
-      await sleep(1500);
-
       if (accessToken && config.headers) {
         config.headers.Authorization = `Bearer ${accessToken}`;
       }
@@ -60,7 +58,7 @@ export class AxiosHttpClient implements HttpClientInterface {
 
   async get<T>(path: string, config?: HttpRequestConfig): Promise<T> {
     const axiosConfig = mapToAxiosConfig(config);
-
+    await sleep(1500);
     const response = await this.instance.get<T>(path, axiosConfig);
 
     return response.data;
@@ -72,7 +70,7 @@ export class AxiosHttpClient implements HttpClientInterface {
     config?: HttpRequestConfig,
   ): Promise<T> {
     const axiosConfig = mapToAxiosConfig(config);
-
+    await sleep(1500);
     const response = await this.instance.post<T>(path, data, axiosConfig);
 
     return response.data;

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { cn } from "@/app/utils/cn";
 
 import { COLORS } from "@/app/config/constants";
@@ -9,21 +11,31 @@ import { ErrorInputMessage } from "./ErrorInputMessage";
 import { ColorIcon } from "./icons/ColorIcon";
 
 import type { Color } from "@/@types/Color";
-import { useState } from "react";
 
 interface ColorsDropdownInputProps {
+  value?: string;
+  onChange?(color: string): void;
   className?: string;
   error?: string;
 }
 
 export function ColorsDropdownInput({
+  value,
+  onChange,
   className,
   error,
 }: ColorsDropdownInputProps) {
-  const [selectedColor, setSelectedColor] = useState<Color | null>(null);
+  const [selectedColor, setSelectedColor] = useState<Color | null>(() => {
+    if (!value) {
+      return null;
+    }
+
+    return COLORS.find((c) => c.color === value) ?? null;
+  });
 
   function handleSelect(color: Color) {
     setSelectedColor(color);
+    onChange?.(color.color);
   }
 
   return (

@@ -8,26 +8,33 @@ import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
 
 import { ErrorInputMessage } from "./ErrorInputMessage";
 
+interface Option {
+  value: string;
+  label: string;
+}
+
 interface SelectProps {
-  options: {
-    value: string;
-    label: string;
-  }[];
-  className?: string;
-  error?: string;
+  value?: string;
+  onChange?(value: string): void;
   placeholder?: string;
+  error?: string;
+  options: Option[];
+  className?: string;
 }
 
 export function Select({
+  value,
+  onChange,
+  placeholder,
+  error,
   options,
   className,
-  error,
-  placeholder,
 }: SelectProps) {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(value);
 
   function handleSelect(value: string) {
     setSelectedValue(value);
+    onChange?.(value);
   }
 
   return (
@@ -42,7 +49,7 @@ export function Select({
           {placeholder}
         </label>
 
-        <RdxSelect.Root onValueChange={handleSelect}>
+        <RdxSelect.Root value={value} onValueChange={handleSelect}>
           <RdxSelect.Trigger
             aria-label="Selecione o tipo de conta"
             className={cn(

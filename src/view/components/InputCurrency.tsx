@@ -1,12 +1,31 @@
 import { NumericFormat } from "react-number-format";
 
-export function InputCurrency() {
+import { ErrorInputMessage } from "./ErrorInputMessage";
+
+import { cn } from "@/app/utils/cn";
+
+interface InputCurrencyProps {
+  // value?: string;
+  onChange?(value: string): void;
+  error?: string;
+}
+
+export function InputCurrency({ onChange, error }: InputCurrencyProps) {
   return (
-    <NumericFormat
-      thousandSeparator="."
-      decimalSeparator=","
-      defaultValue="0"
-      className="text-[32px] font-bold tracking-[-1px] text-gray-800 outline-none"
-    />
+    <div>
+      <NumericFormat
+        thousandSeparator="."
+        decimalSeparator=","
+        defaultValue="0"
+        // value={value}
+        onChange={(event) => onChange?.(event.target.value)}
+        className={cn(
+          "text-[32px] font-bold tracking-[-1px] text-gray-800 outline-none",
+          error && "text-red-500",
+        )}
+      />
+
+      {error && <ErrorInputMessage error={error} />}
+    </div>
   );
 }
