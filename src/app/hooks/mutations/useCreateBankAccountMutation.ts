@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../useAuthContext";
 
 import { makeBankAccountService } from "@/app/factories/makeBankAccountService";
@@ -6,6 +6,8 @@ import { makeBankAccountService } from "@/app/factories/makeBankAccountService";
 import type { CreateBankAccount } from "@/@types/bankAccount/BankAccount";
 
 export function useCreateBankAccountMutation() {
+  const queryClient = useQueryClient();
+
   const { clearSession } = useAuthContext();
 
   const bankAccountService = makeBankAccountService(clearSession);
@@ -13,6 +15,9 @@ export function useCreateBankAccountMutation() {
   const { mutateAsync, isPending, isError } = useMutation({
     mutationFn: async (bankAccountData: CreateBankAccount) => {
       bankAccountService.create(bankAccountData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
     },
   });
 

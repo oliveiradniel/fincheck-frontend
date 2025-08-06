@@ -8,12 +8,16 @@ export function useGetAllBankAccountsQuery() {
 
   const bankAccountService = makeBankAccountService(clearSession);
 
-  const { data = [], isFetching } = useQuery({
-    queryKey: ["bank-accounts"],
+  const {
+    data = [],
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["bankAccounts"],
     queryFn: async () => {
       return bankAccountService.getAll();
     },
   });
 
-  return { data, isLoading: isFetching };
+  return { data, isLoading, isRefetching: isFetching };
 }

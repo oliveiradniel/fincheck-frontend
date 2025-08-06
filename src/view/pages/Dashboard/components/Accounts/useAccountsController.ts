@@ -11,7 +11,7 @@ export function useAccountsController() {
 
   const windowWidth = useWindowWidth();
 
-  const { data, isLoading } = useGetAllBankAccountsQuery();
+  const { data, isLoading, isRefetching } = useGetAllBankAccountsQuery();
 
   const slidesPerScreen = windowWidth >= 500 ? 2 : 1;
 
@@ -39,6 +39,7 @@ export function useAccountsController() {
     sliderState,
     areValuesVisible,
     isLoading,
+    isRefetching,
     setSliderState,
     onToogleValuesVisibility,
     openNewAccountModal,

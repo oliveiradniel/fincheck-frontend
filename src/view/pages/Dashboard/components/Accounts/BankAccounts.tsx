@@ -3,6 +3,7 @@ import { useAccountsController } from "./useAccountsController";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Loader } from "@/view/components/Loader";
 import { EmptyAccounts } from "./EmptyAccounts";
 import { SkeletonCard } from "./SkeletonCard";
 
@@ -17,6 +18,7 @@ export function BankAccounts() {
     hasAccounts,
     emptyAccounts,
     isLoading,
+    isRefetching,
     sliderState,
     setSliderState,
   } = useAccountsController();
@@ -53,9 +55,13 @@ export function BankAccounts() {
               slot="container-start"
               className="mb-4 flex items-center justify-between"
             >
-              <strong className="text-lg tracking-[-1px] text-white">
-                Minhas contas
-              </strong>
+              <div className="flex items-center gap-2">
+                <strong className="text-lg tracking-[-1px] text-white">
+                  Minhas contas
+                </strong>
+
+                {isRefetching && <Loader className="h-4 w-4" />}
+              </div>
 
               <SliderNavigation
                 isBeginning={sliderState.isBeginning}

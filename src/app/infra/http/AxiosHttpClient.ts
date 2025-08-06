@@ -6,8 +6,6 @@ import axios, {
 
 import toast from "react-hot-toast";
 
-import { sleep } from "@/app/utils/sleep";
-
 import { localStorageKeys } from "@/app/config/localStorageKeys";
 
 import type {
@@ -58,7 +56,7 @@ export class AxiosHttpClient implements HttpClientInterface {
 
   async get<T>(path: string, config?: HttpRequestConfig): Promise<T> {
     const axiosConfig = mapToAxiosConfig(config);
-    await sleep(1500);
+
     const response = await this.instance.get<T>(path, axiosConfig);
 
     return response.data;
@@ -70,7 +68,7 @@ export class AxiosHttpClient implements HttpClientInterface {
     config?: HttpRequestConfig,
   ): Promise<T> {
     const axiosConfig = mapToAxiosConfig(config);
-    await sleep(1500);
+
     const response = await this.instance.post<T>(path, data, axiosConfig);
 
     return response.data;
