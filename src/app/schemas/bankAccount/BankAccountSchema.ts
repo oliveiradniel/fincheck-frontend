@@ -13,7 +13,7 @@ export const BankAccountSchema = z.object({
   color: z
     .string({ error: "A cor deve ser uma string." })
     .nonempty({ error: "A cor é obrigatória." }),
-  type: z.enum(["CHECKING", "INVESTIMENT", "CASH"], {
+  type: z.enum(["CHECKING", "INVESTMENT", "CASH"], {
     error: "Tipo de conta bancária inválido.",
   }),
 });

@@ -4,11 +4,11 @@ import type { BankAccountSchema } from "@/app/schemas/bankAccount/BankAccountSch
 
 export type BankAccountData = z.infer<typeof BankAccountSchema>;
 
-export type BankAccount = z.infer<typeof BankAccountSchema>;
-
-export type CreateBankAccount = {
+export type BankAccount = {
   name: string;
   initialBalance: number;
   color: string;
-  type: "CHECKING" | "INVESTIMENT" | "CASH";
+  type: "CHECKING" | "INVESTMENT" | "CASH";
 };
+
+export type CreateBankAccount = BankAccount;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 
 import { useWindowWidth } from "@/app/hooks/useWindowWidth";
+import { useGetAllBankAccountsQuery } from "@/app/hooks/queries/useGetAllBankAccountsQuery";
 
 export function useAccountsController() {
   const { areValuesVisible, onToogleValuesVisibility, openNewAccountModal } =
@@ -10,11 +11,11 @@ export function useAccountsController() {
 
   const windowWidth = useWindowWidth();
 
-  const accounts = [];
+  const { data, isLoading } = useGetAllBankAccountsQuery();
 
   const slidesPerScreen = windowWidth >= 500 ? 2 : 1;
 
-  const isEnd = accounts.length <= slidesPerScreen;
+  const isEnd = data.length <= slidesPerScreen;
 
   const [sliderState, setSliderState] = useState({
     isBeginning: true,
@@ -25,19 +26,19 @@ export function useAccountsController() {
     setSliderState((prevState) => {
       return {
         isBeginning: prevState.isBeginning,
-        isEnd,
+        isEnd: isEnd,
       };
     });
   }, [isEnd]);
 
   return {
-    accounts,
-    hasAccounts: accounts.length > 0,
-    emptyAccounts: accounts.length === 0,
+    accounts: data,
+    hasAccounts: data?.length > 0,
+    emptyAccounts: data.length === 0,
     windowWidth,
     sliderState,
     areValuesVisible,
-    isLoading: false,
+    isLoading,
     setSliderState,
     onToogleValuesVisibility,
     openNewAccountModal,

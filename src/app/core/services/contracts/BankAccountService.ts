@@ -13,6 +13,12 @@ export class BankAccountService implements BanKAccountServiceInterface {
     this.httpClient = httpClient;
   }
 
+  async getAll(): Promise<BankAccount[]> {
+    const data = await this.httpClient.get<BankAccount[]>("/bank-accounts");
+
+    return data;
+  }
+
   async create(params: CreateBankAccount): Promise<BankAccount> {
     const data = await this.httpClient.post<BankAccount>(
       "/bank-accounts",

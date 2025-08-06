@@ -73,13 +73,13 @@ export function BankAccounts() {
             ))}
 
           {!isLoading &&
-            accounts.map((_, index) => (
+            accounts.map(({ initialBalance, name, type, color }, index) => (
               <SwiperSlide key={index}>
                 <Card
-                  color="#0f0"
-                  name="Carteira"
-                  balance={1000.23}
-                  type="CHECKING"
+                  color={color}
+                  name={name}
+                  balance={initialBalance}
+                  type={type}
                 />
               </SwiperSlide>
             ))}

@@ -73,7 +73,7 @@ export function NewAccountModal() {
                     label: "Conta Corrente",
                   },
                   {
-                    value: "INVESTIMENT",
+                    value: "INVESTMENT",
                     label: "Investimentos",
                   },
                   {
