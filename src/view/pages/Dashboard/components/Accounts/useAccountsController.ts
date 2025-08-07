@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 
@@ -31,8 +31,19 @@ export function useAccountsController() {
     });
   }, [isEnd]);
 
+  const totalBalance = useMemo(() => {
+    if (!data) return 0;
+
+    return data.reduce((total, account) => {
+      return total + account.currentBalance;
+    }, 0);
+  }, [data]);
+
+  console.log(data);
+
   return {
     accounts: data,
+    totalBalance,
     hasAccounts: data?.length > 0,
     emptyAccounts: data.length === 0,
     windowWidth,

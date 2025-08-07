@@ -1,4 +1,5 @@
 import { useDashboardContext } from "../DashboardContext/useDashboardContext";
+import { useAccountsController } from "./useAccountsController";
 
 import { cn } from "@/app/utils/cn";
 import { formatCurrency } from "@/app/utils/formatCurrency";
@@ -12,6 +13,8 @@ interface TotalBalanceProps {
 
 export function TotalBalance({ isLoading }: TotalBalanceProps) {
   const { areValuesVisible, onToogleValuesVisibility } = useDashboardContext();
+
+  const { totalBalance, isRefetching } = useAccountsController();
 
   return (
     <div className="flex flex-col text-white">
@@ -29,12 +32,12 @@ export function TotalBalance({ isLoading }: TotalBalanceProps) {
             (!areValuesVisible || isLoading) && "blur-sm",
           )}
         >
-          {isLoading ? "-------" : formatCurrency(1000)}
+          {isLoading ? "-------" : formatCurrency(totalBalance)}
         </strong>
 
-        {isLoading && <Loader className={"h-4 w-4"} />}
+        {(isLoading || isRefetching) && <Loader className={"h-4 w-4"} />}
 
-        {!isLoading && (
+        {!isLoading && !isRefetching && (
           <button
             aria-expanded={areValuesVisible}
             aria-label={
