@@ -2,8 +2,9 @@ import type { BanKAccountServiceInterface } from "../interfaces/BankAccountServi
 import type { HttpClientInterface } from "@/@types/services/HttpClientInterface";
 
 import type {
-  BankAccount,
-  CreateBankAccount,
+  BankAccountCreate,
+  BankAccountResponse,
+  BankAccountUpdate,
 } from "@/@types/bankAccount/BankAccount";
 
 export class BankAccountService implements BanKAccountServiceInterface {
@@ -13,15 +14,28 @@ export class BankAccountService implements BanKAccountServiceInterface {
     this.httpClient = httpClient;
   }
 
-  async getAll(): Promise<BankAccount[]> {
-    const data = await this.httpClient.get<BankAccount[]>("/bank-accounts");
+  async getAll(): Promise<BankAccountResponse[]> {
+    const data =
+      await this.httpClient.get<BankAccountResponse[]>("/bank-accounts");
 
     return data;
   }
 
-  async create(params: CreateBankAccount): Promise<BankAccount> {
-    const data = await this.httpClient.post<BankAccount>(
+  async create(params: BankAccountCreate): Promise<BankAccountResponse> {
+    const data = await this.httpClient.post<BankAccountResponse>(
       "/bank-accounts",
+      params,
+    );
+
+    return data;
+  }
+
+  async update({
+    id,
+    ...params
+  }: BankAccountUpdate): Promise<BankAccountResponse> {
+    const data = await this.httpClient.put<BankAccountResponse>(
+      `/bank-accounts/${id}`,
       params,
     );
 

@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import { DashboardContext } from ".";
 
 import type { TransactionType } from "@/@types/TransactionType";
+import type { BankAccount } from "@/@entities/BankAccount";
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const LOCAL_STORAGE_KEY = "__a_v_v";
@@ -18,9 +19,13 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
     useState(false);
+  const [isEditAccountModalOpen, setIsEditAccountModalOpen] = useState(false);
 
   const [newTransactionType, setNewTransactionType] =
     useState<TransactionType | null>(null);
+
+  const [accountBeingEdited, setAccountBeingEdited] =
+    useState<BankAccount | null>(null);
 
   const handleToogleValuesVisibility = useCallback(() => {
     setAreValuesVisible((prevState) => {
@@ -48,18 +53,32 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     setIsNewTransactionModalOpen(false);
   }, []);
 
+  const openEditAccountModal = useCallback((bankAccount: BankAccount) => {
+    setIsEditAccountModalOpen(true);
+    setAccountBeingEdited(bankAccount);
+  }, []);
+
+  const closeEditAccountModal = useCallback(() => {
+    setIsEditAccountModalOpen(false);
+    setAccountBeingEdited(null);
+  }, []);
+
   return (
     <DashboardContext.Provider
       value={{
         areValuesVisible,
         isNewAccountModalOpen,
         isNewTransactionModalOpen,
+        isEditAccountModalOpen,
         newTransactionType,
+        accountBeingEdited,
         onToogleValuesVisibility: handleToogleValuesVisibility,
         openNewAccountModal,
         openNewTransactionModal,
         closeNewAccountModal,
         closeNewTransactionModal,
+        openEditAccountModal,
+        closeEditAccountModal,
       }}
     >
       {children}

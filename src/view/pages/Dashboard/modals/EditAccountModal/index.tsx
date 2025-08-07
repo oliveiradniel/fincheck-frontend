@@ -1,4 +1,4 @@
-import { useNewAccountModalController } from "./useNewAccountModalController";
+import { useEditAccountModalController } from "./useEditAccountModalController";
 
 import { Controller } from "react-hook-form";
 
@@ -9,29 +9,29 @@ import { Select } from "@/view/components/Select";
 import { ColorsDropdownInput } from "@/view/components/ColorsDropdownInput";
 import { Button } from "@/view/components/Button";
 
-export function NewAccountModal() {
+export function EditAccountModal() {
   const {
     control,
-    isNewAccountModalOpen,
+    isEditAccountModalOpen,
     errors,
     hasRequestError,
     isLoading,
-    closeNewAccountModal,
+    closeEditAccountModal,
     handleSubmit,
     register,
-  } = useNewAccountModalController();
+  } = useEditAccountModalController();
 
   return (
     <Modal
-      isOpen={isNewAccountModalOpen}
-      title="Nova Conta"
-      description="Criar uma nova conta"
-      onClose={closeNewAccountModal}
+      isOpen={isEditAccountModalOpen}
+      title="Editar Conta"
+      description="Editar conta já existente"
+      onClose={closeEditAccountModal}
     >
       <form onSubmit={handleSubmit}>
         <div>
           <span className="text-xs tracking-[0.5px] text-gray-600">
-            Saldo inicial
+            Saldo atual
           </span>
           <div className="flex items-center gap-2">
             <span>R$</span>
@@ -101,7 +101,7 @@ export function NewAccountModal() {
         </div>
 
         <Button type="submit" isLoading={isLoading} className="mt-6 w-full">
-          {hasRequestError ? "Tentar novamente" : "Criar"}
+          {hasRequestError ? "Tentar novamente" : "Salvar"}
         </Button>
       </form>
     </Modal>

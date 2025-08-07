@@ -73,4 +73,16 @@ export class AxiosHttpClient implements HttpClientInterface {
 
     return response.data;
   }
+
+  async put<T>(
+    path: string,
+    data: unknown,
+    config: HttpRequestConfig,
+  ): Promise<T> {
+    const axiosConfig = mapToAxiosConfig(config);
+
+    const response = await this.instance.put<T>(path, data, axiosConfig);
+
+    return response.data;
+  }
 }

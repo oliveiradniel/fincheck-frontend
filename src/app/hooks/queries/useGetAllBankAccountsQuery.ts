@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../useAuthContext";
 
 import { makeBankAccountService } from "@/app/factories/makeBankAccountService";
-import { sleep } from "@/app/utils/sleep";
 
 export function useGetAllBankAccountsQuery() {
   const { clearSession } = useAuthContext();
@@ -16,7 +15,6 @@ export function useGetAllBankAccountsQuery() {
   } = useQuery({
     queryKey: ["bankAccounts"],
     queryFn: async () => {
-      await sleep(5000);
       return bankAccountService.getAll();
     },
   });

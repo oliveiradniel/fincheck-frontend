@@ -3,16 +3,16 @@ import { useAuthContext } from "../useAuthContext";
 
 import { makeBankAccountService } from "@/app/factories/makeBankAccountService";
 
-import type { BankAccountCreate } from "@/@types/bankAccount/BankAccount";
+import type { BankAccountUpdate } from "@/@types/bankAccount/BankAccount";
 
-export function useCreateBankAccountMutation() {
+export function useUpdateBankAccountMutation() {
   const { clearSession } = useAuthContext();
 
   const bankAccountService = makeBankAccountService(clearSession);
 
   const { mutateAsync, isPending, isError } = useMutation({
-    mutationFn: async (bankAccount: BankAccountCreate) => {
-      bankAccountService.create(bankAccount);
+    mutationFn: async (bankAccount: BankAccountUpdate) => {
+      return bankAccountService.update(bankAccount);
     },
   });
 

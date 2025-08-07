@@ -79,14 +79,9 @@ export function BankAccounts() {
             ))}
 
           {!isLoading &&
-            accounts.map(({ initialBalance, name, type, color }, index) => (
-              <SwiperSlide key={index}>
-                <Card
-                  color={color}
-                  name={name}
-                  balance={initialBalance}
-                  type={type}
-                />
+            accounts.map((account) => (
+              <SwiperSlide key={account.id}>
+                <Card data={account} />
               </SwiperSlide>
             ))}
         </Swiper>

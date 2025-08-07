@@ -6,8 +6,13 @@ import { useWindowWidth } from "@/app/hooks/useWindowWidth";
 import { useGetAllBankAccountsQuery } from "@/app/hooks/queries/useGetAllBankAccountsQuery";
 
 export function useAccountsController() {
-  const { areValuesVisible, onToogleValuesVisibility, openNewAccountModal } =
-    useDashboardContext();
+  const {
+    isEditAccountModalOpen,
+    areValuesVisible,
+    openEditAccountModal,
+    closeEditAccountModal,
+    onToogleValuesVisibility,
+  } = useDashboardContext();
 
   const windowWidth = useWindowWidth();
 
@@ -39,9 +44,8 @@ export function useAccountsController() {
     }, 0);
   }, [data]);
 
-  console.log(data);
-
   return {
+    isEditAccountModalOpen,
     accounts: data,
     totalBalance,
     hasAccounts: data?.length > 0,
@@ -51,8 +55,9 @@ export function useAccountsController() {
     areValuesVisible,
     isLoading,
     isRefetching,
+    openEditAccountModal,
+    closeEditAccountModal,
     setSliderState,
     onToogleValuesVisibility,
-    openNewAccountModal,
   };
 }

@@ -5,19 +5,18 @@ import { ErrorInputMessage } from "./ErrorInputMessage";
 import { cn } from "@/app/utils/cn";
 
 interface InputCurrencyProps {
-  // value?: string;
+  value?: string | number;
   onChange?(value: string): void;
   error?: string;
 }
 
-export function InputCurrency({ onChange, error }: InputCurrencyProps) {
+export function InputCurrency({ value, onChange, error }: InputCurrencyProps) {
   return (
     <div>
       <NumericFormat
         thousandSeparator="."
         decimalSeparator=","
-        defaultValue="0"
-        // value={value}
+        value={value}
         onChange={(event) => onChange?.(event.target.value)}
         className={cn(
           "text-[32px] font-bold tracking-[-1px] text-gray-800 outline-none",

@@ -1,9 +1,9 @@
 import type {
-  BankAccount,
-  CreateBankAccount,
+  BankAccountCreate,
+  BankAccountResponse,
 } from "@/@types/bankAccount/BankAccount";
 
 export interface BanKAccountServiceInterface {
-  getAll(): Promise<BankAccount[]>;
-  create(params: CreateBankAccount): Promise<BankAccount>;
+  getAll(): Promise<BankAccountResponse[]>;
+  create(params: BankAccountCreate): Promise<BankAccountResponse>;
 }
