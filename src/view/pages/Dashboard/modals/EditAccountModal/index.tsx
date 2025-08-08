@@ -18,11 +18,14 @@ export function EditAccountModal() {
     isDeleteModalOepn,
     errors,
     hasRequestError,
+    hasErrorDeleteRequest,
     isLoading,
+    isDeletingBankAccount,
     closeEditAccountModal,
     handleSubmit,
     handleOpenDeleteModal,
     handleCloseDeleteModal,
+    handleDeleteAccount,
     register,
   } = useEditAccountModalController();
 
@@ -31,9 +34,11 @@ export function EditAccountModal() {
       <ConfirmDeleteModal
         title="Tem certeza que deseja excluir esta conta?"
         subtitle="Ao excluir a conta, também serão excluídos todos os registros de receita e despesa relacionados."
-        onConfirm={() => {}}
-        onClose={handleCloseDeleteModal}
         description="Excluir conta bancária"
+        isLoading={isDeletingBankAccount}
+        hasError={hasErrorDeleteRequest}
+        onConfirm={handleDeleteAccount}
+        onClose={handleCloseDeleteModal}
       />
     );
   }

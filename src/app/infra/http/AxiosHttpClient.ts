@@ -85,4 +85,10 @@ export class AxiosHttpClient implements HttpClientInterface {
 
     return response.data;
   }
+
+  delete(path: string, config: HttpRequestConfig) {
+    const axiosConfig = mapToAxiosConfig(config);
+
+    return this.instance.delete(path, axiosConfig);
+  }
 }

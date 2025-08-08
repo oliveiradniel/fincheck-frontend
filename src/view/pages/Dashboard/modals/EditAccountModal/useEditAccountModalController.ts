@@ -13,6 +13,7 @@ import { isEmptyObject } from "@/app/utils/isEmptyObject";
 import { currencyStringToNumber } from "@/app/utils/currencyStringToNumber";
 
 import type { BankAccountForm } from "@/@types/bankAccount/BankAccount";
+import { useDeleteBankAccountMutation } from "@/app/hooks/mutations/useDeleteBankAccountMutation";
 
 export function useEditAccountModalController() {
   const queryClient = useQueryClient();
@@ -35,9 +36,20 @@ export function useEditAccountModalController() {
     },
   });
 
-  const [isDeleteModalOepn, setIsDeleteModalOpen] = useState(true);
+  const [isDeleteModalOepn, setIsDeleteModalOpen] = useState(false);
 
   const { mutateAsync, isLoading, isError } = useUpdateBankAccountMutation();
+
+  const { deleteBankAccount, isDeletingBankAccount, hasErrorDeleteRequest } =
+    useDeleteBankAccountMutation();
+
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
 
   const handleSubmit = hookFormHandleSubmit(async (bankAccountForm) => {
     if (isLoading) return;
@@ -54,19 +66,27 @@ export function useEditAccountModalController() {
       });
 
       queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
-      toast.success("Conta salva com sucesso!");
+
       closeEditAccountModal();
+
+      toast.success("Conta salva com sucesso!");
     } catch {
       toast.error("Ocorreu um erro ao salvar sua conta!");
     }
   });
 
-  function handleOpenDeleteModal() {
-    setIsDeleteModalOpen(true);
-  }
+  async function handleDeleteAccount() {
+    try {
+      await deleteBankAccount(accountBeingEdited!.id);
 
-  function handleCloseDeleteModal() {
-    setIsDeleteModalOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
+
+      closeEditAccountModal();
+
+      toast.success("Conta excluída com sucesso!");
+    } catch {
+      toast.error("Ocorreu um erro ao excluir sua conta!.");
+    }
   }
 
   return {
@@ -76,11 +96,14 @@ export function useEditAccountModalController() {
     errors,
     hasFormError: !isEmptyObject(errors),
     hasRequestError: isError,
+    hasErrorDeleteRequest,
     isLoading,
+    isDeletingBankAccount,
     closeEditAccountModal,
     handleSubmit,
     handleOpenDeleteModal,
     handleCloseDeleteModal,
+    handleDeleteAccount,
     register,
   };
 }

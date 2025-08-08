@@ -9,4 +9,5 @@ export interface HttpClientInterface {
   get<T>(url: string, config?: HttpRequestConfig): Promise<T>;
   post<T>(url: string, data: unknown, config?: HttpRequestConfig): Promise<T>;
   put<T>(url: string, data: unknown, config?: HttpRequestConfig): Promise<T>;
+  delete(url: string, config?: HttpRequestConfig): void;
 }

@@ -3,6 +3,7 @@ import type { HttpClientInterface } from "@/@types/services/HttpClientInterface"
 
 import type {
   BankAccountCreate,
+  BankAccountId,
   BankAccountResponse,
   BankAccountUpdate,
 } from "@/@types/bankAccount/BankAccount";
@@ -40,5 +41,9 @@ export class BankAccountService implements BanKAccountServiceInterface {
     );
 
     return data;
+  }
+
+  delete(bankAccountId: BankAccountId): void {
+    return this.httpClient.delete(`/bank-accounts/${bankAccountId}`);
   }
 }
