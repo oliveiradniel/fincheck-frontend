@@ -19,5 +19,9 @@ export function useGetAllBankAccountsQuery() {
     },
   });
 
-  return { data, isLoading, isRefetching: isFetching };
+  return {
+    accounts: data,
+    isLoadingAccounts: isLoading,
+    isRefetchingAccounts: isFetching,
+  };
 }

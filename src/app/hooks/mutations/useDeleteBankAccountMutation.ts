@@ -16,6 +16,6 @@ export function useDeleteBankAccountMutation() {
   return {
     deleteBankAccount: mutateAsync,
     isDeletingBankAccount: isPending,
-    hasErrorDeleteRequest: isError,
+    hasErrorDeleteBankAccount: isError,
   };
 }

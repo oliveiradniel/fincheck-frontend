@@ -10,10 +10,10 @@ export function Register() {
     handleSubmit,
     register,
     requestErrorMessage,
-    errors,
+    formErrors,
+    isAuthenticating,
     hasFormError,
-    hasRequestError,
-    isLoading,
+    hasAuthenticateError,
   } = useRegisterController();
 
   return (
@@ -22,31 +22,31 @@ export function Register() {
         <Input
           type="text"
           placeholder="Nome"
-          error={errors.name?.message}
+          error={formErrors.name?.message}
           {...register("name")}
         />
 
         <Input
           type="email"
           placeholder="E-mail"
-          error={errors.email?.message || requestErrorMessage}
+          error={formErrors.email?.message || requestErrorMessage}
           {...register("email")}
         />
 
         <Input
           type="password"
           placeholder="Senha"
-          error={errors.password?.message}
+          error={formErrors.password?.message}
           {...register("password")}
         />
 
         <Button
           type="submit"
           disabled={hasFormError}
-          isLoading={isLoading}
+          isLoading={isAuthenticating}
           className="mt-2"
         >
-          {hasRequestError ? "Tentar novamente" : "Criar conta"}
+          {hasAuthenticateError ? "Tentar novamente" : "Criar conta"}
         </Button>
       </form>
     </SessionLayout>

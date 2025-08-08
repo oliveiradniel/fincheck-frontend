@@ -28,17 +28,21 @@ export function useNewAccountModalController() {
     resolver: zodResolver(CreateBankAccountSchema),
   });
 
-  const { mutateAsync, isLoading, isError } = useCreateBankAccountMutation();
+  const {
+    createBankAccount,
+    isCreatingBankAccount,
+    hasCreateErrorBankAccount,
+  } = useCreateBankAccountMutation();
 
   const handleSubmit = hookFormHandleSubmit(async (bankAccountForm) => {
-    if (isLoading) return;
+    if (isCreatingBankAccount) return;
 
     const formattedInitialBalance = currencyStringToNumber(
       bankAccountForm.initialBalance,
     );
 
     try {
-      await mutateAsync({
+      await createBankAccount({
         ...bankAccountForm,
         initialBalance: formattedInitialBalance,
       });
@@ -57,8 +61,8 @@ export function useNewAccountModalController() {
     isNewAccountModalOpen,
     errors,
     hasFormError: !isEmptyObject(errors),
-    hasRequestError: isError,
-    isLoading,
+    isCreatingBankAccount,
+    hasCreateErrorBankAccount,
     closeNewAccountModal,
     handleSubmit,
     register,

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDashboardContext } from "../../components/DashboardContext/useDashboardContext";
 import { useUpdateBankAccountMutation } from "@/app/hooks/mutations/useUpdateBankAccountMutation";
+import { useDeleteBankAccountMutation } from "@/app/hooks/mutations/useDeleteBankAccountMutation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UpdateBankAccountSchema } from "@/app/schemas/bankAccount/UpdateBankAccountSchema";
@@ -13,7 +14,6 @@ import { isEmptyObject } from "@/app/utils/isEmptyObject";
 import { currencyStringToNumber } from "@/app/utils/currencyStringToNumber";
 
 import type { BankAccountForm } from "@/@types/bankAccount/BankAccount";
-import { useDeleteBankAccountMutation } from "@/app/hooks/mutations/useDeleteBankAccountMutation";
 
 export function useEditAccountModalController() {
   const queryClient = useQueryClient();
@@ -38,10 +38,17 @@ export function useEditAccountModalController() {
 
   const [isDeleteModalOepn, setIsDeleteModalOpen] = useState(false);
 
-  const { mutateAsync, isLoading, isError } = useUpdateBankAccountMutation();
+  const {
+    updateBankAccount,
+    isUpdatingBankAccount,
+    hasErrorUpdateBankAccount,
+  } = useUpdateBankAccountMutation();
 
-  const { deleteBankAccount, isDeletingBankAccount, hasErrorDeleteRequest } =
-    useDeleteBankAccountMutation();
+  const {
+    deleteBankAccount,
+    isDeletingBankAccount,
+    hasErrorDeleteBankAccount,
+  } = useDeleteBankAccountMutation();
 
   function handleOpenDeleteModal() {
     setIsDeleteModalOpen(true);
@@ -52,14 +59,14 @@ export function useEditAccountModalController() {
   }
 
   const handleSubmit = hookFormHandleSubmit(async (bankAccountForm) => {
-    if (isLoading) return;
+    if (isUpdatingBankAccount) return;
 
     const formattedInitialBalance = currencyStringToNumber(
       bankAccountForm.initialBalance,
     );
 
     try {
-      await mutateAsync({
+      await updateBankAccount({
         ...bankAccountForm,
         initialBalance: formattedInitialBalance,
         id: accountBeingEdited!.id,
@@ -93,12 +100,12 @@ export function useEditAccountModalController() {
     control,
     isEditAccountModalOpen,
     isDeleteModalOepn,
-    errors,
-    hasFormError: !isEmptyObject(errors),
-    hasRequestError: isError,
-    hasErrorDeleteRequest,
-    isLoading,
+    formErrors: errors,
+    isUpdatingBankAccount,
     isDeletingBankAccount,
+    hasFormError: !isEmptyObject(errors),
+    hasErrorUpdateBankAccount,
+    hasErrorDeleteBankAccount,
     closeEditAccountModal,
     handleSubmit,
     handleOpenDeleteModal,

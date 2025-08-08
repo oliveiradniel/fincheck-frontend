@@ -25,15 +25,16 @@ export function useRegisterController() {
     null,
   );
 
-  const { mutateAsync, isLoading, isError } = useAuthMutation();
+  const { authenticate, isAuthenticating, hasAuthenticateError } =
+    useAuthMutation();
 
   const handleSubmit = hookFormHandleSubmit(async (credentials) => {
-    if (isLoading) return;
+    if (isAuthenticating) return;
 
     setRequestErrorMessage(null);
 
     try {
-      await mutateAsync({
+      await authenticate({
         action: () => authService.signup(credentials),
       });
     } catch (error) {
@@ -49,9 +50,9 @@ export function useRegisterController() {
     handleSubmit,
     register,
     requestErrorMessage,
-    errors,
+    formErrors: errors,
     hasFormError: !isEmptyObject(errors),
-    hasRequestError: isError,
-    isLoading,
+    isAuthenticating,
+    hasAuthenticateError,
   };
 }

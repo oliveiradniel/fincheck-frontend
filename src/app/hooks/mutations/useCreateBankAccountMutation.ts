@@ -17,8 +17,8 @@ export function useCreateBankAccountMutation() {
   });
 
   return {
-    mutateAsync,
-    isLoading: isPending,
-    isError,
+    createBankAccount: mutateAsync,
+    isCreatingBankAccount: isPending,
+    hasCreateErrorBankAccount: isError,
   };
 }

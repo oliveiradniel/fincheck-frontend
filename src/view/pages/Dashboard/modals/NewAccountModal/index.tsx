@@ -14,8 +14,8 @@ export function NewAccountModal() {
     control,
     isNewAccountModalOpen,
     errors,
-    hasRequestError,
-    isLoading,
+    isCreatingBankAccount,
+    hasCreateErrorBankAccount,
     closeNewAccountModal,
     handleSubmit,
     register,
@@ -100,8 +100,12 @@ export function NewAccountModal() {
           />
         </div>
 
-        <Button type="submit" isLoading={isLoading} className="mt-6 w-full">
-          {hasRequestError ? "Tentar novamente" : "Criar"}
+        <Button
+          type="submit"
+          isLoading={isCreatingBankAccount}
+          className="mt-6 w-full"
+        >
+          {hasCreateErrorBankAccount ? "Tentar novamente" : "Criar"}
         </Button>
       </form>
     </Modal>

@@ -17,21 +17,21 @@ export function BankAccounts() {
     accounts,
     hasAccounts,
     emptyAccounts,
-    isLoading,
-    isRefetching,
+    isLoadingAccounts,
+    isRefetchingAccounts,
     sliderState,
     setSliderState,
   } = useAccountsController();
 
   return (
     <div className="mt-10 flex flex-1 flex-col justify-end md:mt-0">
-      {isLoading && (
+      {isLoadingAccounts && (
         <strong className="mb-4 text-lg tracking-[-1px] text-white">
           Minhas contas
         </strong>
       )}
 
-      {!isLoading && emptyAccounts && <EmptyAccounts />}
+      {!isLoadingAccounts && emptyAccounts && <EmptyAccounts />}
 
       <div>
         <Swiper
@@ -50,7 +50,7 @@ export function BankAccounts() {
             })
           }
         >
-          {!isLoading && hasAccounts && (
+          {!isLoadingAccounts && hasAccounts && (
             <div
               slot="container-start"
               className="mb-4 flex items-center justify-between"
@@ -60,25 +60,25 @@ export function BankAccounts() {
                   Minhas contas
                 </strong>
 
-                {isRefetching && <Loader className="h-4 w-4" />}
+                {isRefetchingAccounts && <Loader className="h-4 w-4" />}
               </div>
 
               <SliderNavigation
                 isBeginning={sliderState.isBeginning}
                 isEnd={sliderState.isEnd}
-                isDisabled={isLoading}
+                isDisabled={isLoadingAccounts}
               />
             </div>
           )}
 
-          {isLoading &&
+          {isLoadingAccounts &&
             [...Array(2)].map((_, index) => (
               <SwiperSlide key={index}>
                 <SkeletonCard />
               </SwiperSlide>
             ))}
 
-          {!isLoading &&
+          {!isLoadingAccounts &&
             accounts.map((account) => (
               <SwiperSlide key={account.id}>
                 <Card data={account} />

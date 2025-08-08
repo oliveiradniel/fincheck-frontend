@@ -14,8 +14,8 @@ export function Login() {
     requestErrorMessage,
     errors,
     hasFormError,
-    hasRequestError,
-    isLoading,
+    isAuthenticating,
+    hasAuthenticateError,
   } = useLoginController();
 
   return (
@@ -44,10 +44,10 @@ export function Login() {
         <Button
           type="submit"
           disabled={hasFormError}
-          isLoading={isLoading}
+          isLoading={isAuthenticating}
           className="mt-2"
         >
-          {hasRequestError ? "Tentar novamente" : "Entrar"}
+          {hasAuthenticateError ? "Tentar novamente" : "Entrar"}
         </Button>
       </form>
     </SessionLayout>

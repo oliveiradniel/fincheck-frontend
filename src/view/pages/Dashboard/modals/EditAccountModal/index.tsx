@@ -16,11 +16,11 @@ export function EditAccountModal() {
     control,
     isEditAccountModalOpen,
     isDeleteModalOepn,
-    errors,
-    hasRequestError,
-    hasErrorDeleteRequest,
-    isLoading,
+    formErrors,
+    isUpdatingBankAccount,
     isDeletingBankAccount,
+    hasErrorUpdateBankAccount,
+    hasErrorDeleteBankAccount,
     closeEditAccountModal,
     handleSubmit,
     handleOpenDeleteModal,
@@ -36,7 +36,7 @@ export function EditAccountModal() {
         subtitle="Ao excluir a conta, também serão excluídos todos os registros de receita e despesa relacionados."
         description="Excluir conta bancária"
         isLoading={isDeletingBankAccount}
-        hasError={hasErrorDeleteRequest}
+        hasError={hasErrorDeleteBankAccount}
         onConfirm={handleDeleteAccount}
         onClose={handleCloseDeleteModal}
       />
@@ -74,7 +74,7 @@ export function EditAccountModal() {
                 <InputCurrency
                   value={value}
                   onChange={onChange}
-                  error={errors.initialBalance?.message}
+                  error={formErrors.initialBalance?.message}
                 />
               )}
             />
@@ -85,7 +85,7 @@ export function EditAccountModal() {
           <Input
             type="text"
             placeholder="Nome da conta"
-            error={errors.name?.message}
+            error={formErrors.name?.message}
             {...register("name")}
           />
 
@@ -98,7 +98,7 @@ export function EditAccountModal() {
                 value={value}
                 onChange={onChange}
                 placeholder="Tipo"
-                error={errors.type?.message}
+                error={formErrors.type?.message}
                 options={[
                   {
                     value: "CHECKING",
@@ -125,14 +125,18 @@ export function EditAccountModal() {
               <ColorsDropdownInput
                 value={value}
                 onChange={onChange}
-                error={errors.color?.message}
+                error={formErrors.color?.message}
               />
             )}
           />
         </div>
 
-        <Button type="submit" isLoading={isLoading} className="mt-6 w-full">
-          {hasRequestError ? "Tentar novamente" : "Salvar"}
+        <Button
+          type="submit"
+          isLoading={isUpdatingBankAccount}
+          className="mt-6 w-full"
+        >
+          {hasErrorUpdateBankAccount ? "Tentar novamente" : "Salvar"}
         </Button>
       </form>
     </Modal>

@@ -23,15 +23,16 @@ export function useLoginController() {
     null,
   );
 
-  const { mutateAsync, isLoading, isError } = useAuthMutation();
+  const { authenticate, isAuthenticating, hasAuthenticateError } =
+    useAuthMutation();
 
   const handleSubmit = hookFormHandleSubmit(async (credentials) => {
-    if (isLoading) return;
+    if (isAuthenticating) return;
 
     setRequestErrorMessage(null);
 
     try {
-      await mutateAsync({
+      await authenticate({
         action: () => authService.signin(credentials),
       });
     } catch (error) {
@@ -49,7 +50,7 @@ export function useLoginController() {
     requestErrorMessage,
     errors,
     hasFormError: !isEmptyObject(errors),
-    hasRequestError: isError,
-    isLoading,
+    hasAuthenticateError,
+    isAuthenticating,
   };
 }

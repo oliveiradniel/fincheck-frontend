@@ -7,9 +7,10 @@ import { makeUsersService } from "@/app/factories/makeUsersService";
 
 import { localStorageKeys } from "@/app/config/localStorageKeys";
 
-import type { AccessToken } from "@/@types/auth/AccessToken";
-import type { User } from "@/@types/user/User";
 import { LaunchScreen } from "@/view/components/LaunchScreen";
+
+import type { AccessToken } from "@/@types/auth/AccessToken";
+import type { User } from "@/@entities/User";
 
 interface AuthProviderProps {
   children: React.ReactNode;

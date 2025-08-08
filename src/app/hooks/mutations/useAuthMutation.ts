@@ -17,8 +17,8 @@ export function useAuthMutation() {
   });
 
   return {
-    mutateAsync,
-    isLoading: isPending,
-    isError,
+    authenticate: mutateAsync,
+    isAuthenticating: isPending,
+    hasAuthenticateError: isError,
   };
 }

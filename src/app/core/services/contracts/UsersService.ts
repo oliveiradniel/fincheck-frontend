@@ -1,6 +1,6 @@
 import type { UsersServiceInterface } from "../interfaces/UsersServiceInterface";
 
-import type { User } from "@/@types/user/User";
+import type { User } from "@/@entities/User";
 
 import type { HttpClientInterface } from "@/@types/services/HttpClientInterface";
 
