@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDashboardContext } from "../../components/DashboardContext/useDashboardContext";
@@ -34,6 +35,8 @@ export function useEditAccountModalController() {
     },
   });
 
+  const [isDeleteModalOepn, setIsDeleteModalOpen] = useState(true);
+
   const { mutateAsync, isLoading, isError } = useUpdateBankAccountMutation();
 
   const handleSubmit = hookFormHandleSubmit(async (bankAccountForm) => {
@@ -58,15 +61,26 @@ export function useEditAccountModalController() {
     }
   });
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
+
   return {
     control,
     isEditAccountModalOpen,
+    isDeleteModalOepn,
     errors,
     hasFormError: !isEmptyObject(errors),
     hasRequestError: isError,
     isLoading,
     closeEditAccountModal,
     handleSubmit,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
     register,
   };
 }
