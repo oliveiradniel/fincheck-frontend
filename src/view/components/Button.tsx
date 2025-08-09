@@ -23,7 +23,7 @@ export function Button({
       {...props}
       aria-disabled={isLoading}
       className={cn(
-        "flex h-12 cursor-pointer items-center justify-center rounded-2xl bg-moss-green px-6 font-medium text-white transition-all duration-300 ease-in-out hover:bg-moss-green-hover disabled:cursor-default disabled:bg-gray-100 disabled:text-gray-400",
+        "flex h-12 cursor-pointer items-center justify-center rounded-2xl bg-moss-green px-6 font-medium text-white transition-all duration-300 ease-in-out hover:bg-moss-green-hover disabled:cursor-default disabled:bg-gray-400 disabled:text-gray-100",
         isLoading && "pointer-events-auto cursor-default bg-moss-green-hover",
         isDanger && "bg-red-700 hover:bg-red-700/86",
         isDanger && isLoading && "!bg-red-700",

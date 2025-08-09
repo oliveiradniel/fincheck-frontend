@@ -13,7 +13,7 @@ export function NewAccountModal() {
   const {
     control,
     isNewAccountModalOpen,
-    errors,
+    formErrors,
     isCreatingBankAccount,
     hasCreateErrorBankAccount,
     closeNewAccountModal,
@@ -43,7 +43,7 @@ export function NewAccountModal() {
                 <InputCurrency
                   value={value}
                   onChange={onChange}
-                  error={errors.initialBalance?.message}
+                  error={formErrors.initialBalance?.message}
                 />
               )}
             />
@@ -54,7 +54,7 @@ export function NewAccountModal() {
           <Input
             type="text"
             placeholder="Nome da conta"
-            error={errors.name?.message}
+            error={formErrors.name?.message}
             {...register("name")}
           />
 
@@ -67,7 +67,7 @@ export function NewAccountModal() {
                 value={value}
                 onChange={onChange}
                 placeholder="Tipo"
-                error={errors.type?.message}
+                error={formErrors.type?.message}
                 options={[
                   {
                     value: "CHECKING",
@@ -94,13 +94,14 @@ export function NewAccountModal() {
               <ColorsDropdownInput
                 value={value}
                 onChange={onChange}
-                error={errors.color?.message}
+                error={formErrors.color?.message}
               />
             )}
           />
         </div>
 
         <Button
+          aria-disabled={isCreatingBankAccount}
           type="submit"
           isLoading={isCreatingBankAccount}
           className="mt-6 w-full"

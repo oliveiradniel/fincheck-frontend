@@ -37,19 +37,21 @@ export function useNewAccountModalController() {
   const handleSubmit = hookFormHandleSubmit(async (bankAccountForm) => {
     if (isCreatingBankAccount) return;
 
-    const formattedInitialBalance = currencyStringToNumber(
-      bankAccountForm.initialBalance,
-    );
-
     try {
+      const formattedInitialBalance = currencyStringToNumber(
+        bankAccountForm.initialBalance,
+      );
+
       await createBankAccount({
         ...bankAccountForm,
         initialBalance: formattedInitialBalance,
       });
 
       queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
-      toast.success("Conta cadastrada com sucesso!");
+
       closeNewAccountModal();
+
+      toast.success("Conta cadastrada com sucesso!");
       reset();
     } catch {
       toast.error("Ocorreu um erro ao cadastrar sua conta!");
@@ -59,7 +61,7 @@ export function useNewAccountModalController() {
   return {
     control,
     isNewAccountModalOpen,
-    errors,
+    formErrors: errors,
     hasFormError: !isEmptyObject(errors),
     isCreatingBankAccount,
     hasCreateErrorBankAccount,

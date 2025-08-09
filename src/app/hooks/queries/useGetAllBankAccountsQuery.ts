@@ -14,14 +14,14 @@ export function useGetAllBankAccountsQuery() {
     isFetching,
   } = useQuery({
     queryKey: ["bankAccounts"],
-    queryFn: async () => {
+    queryFn: () => {
       return bankAccountService.getAll();
     },
   });
 
   return {
-    accounts: data,
-    isLoadingAccounts: isLoading,
-    isRefetchingAccounts: isFetching,
+    bankAccounts: data,
+    isLoadingBankAccounts: isLoading,
+    isRefetchingBankAccounts: isFetching,
   };
 }

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import type { TransactionType } from "@/@types/TransactionType";
+import type { TransactionType } from "@/@types/transaction/Transaction";
 import type { BankAccount } from "@/@entities/BankAccount";
 
 interface DashboardContextValue {

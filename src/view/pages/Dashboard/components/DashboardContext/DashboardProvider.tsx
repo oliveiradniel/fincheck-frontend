@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 import { DashboardContext } from ".";
 
-import type { TransactionType } from "@/@types/TransactionType";
+import type { TransactionType } from "@/@types/transaction/Transaction";
 import type { BankAccount } from "@/@entities/BankAccount";
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {

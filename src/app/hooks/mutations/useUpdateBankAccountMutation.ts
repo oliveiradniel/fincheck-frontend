@@ -11,7 +11,7 @@ export function useUpdateBankAccountMutation() {
   const bankAccountService = makeBankAccountService(clearSession);
 
   const { mutateAsync, isPending, isError } = useMutation({
-    mutationFn: async (bankAccount: BankAccountUpdate) => {
+    mutationFn: (bankAccount: BankAccountUpdate) => {
       return bankAccountService.update(bankAccount);
     },
   });

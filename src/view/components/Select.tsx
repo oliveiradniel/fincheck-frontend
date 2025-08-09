@@ -7,8 +7,9 @@ import { cn } from "@/app/utils/cn";
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
 
 import { ErrorInputMessage } from "./ErrorInputMessage";
+import { Loader } from "./Loader";
 
-interface Option {
+export interface Option {
   value: string;
   label: string;
 }
@@ -17,6 +18,7 @@ interface SelectProps {
   value?: string;
   onChange?(value: string): void;
   placeholder?: string;
+  isLoadingData?: boolean;
   error?: string;
   options: Option[];
   className?: string;
@@ -26,6 +28,7 @@ export function Select({
   value,
   onChange,
   placeholder,
+  isLoadingData,
   error,
   options,
   className,
@@ -52,8 +55,9 @@ export function Select({
         <RdxSelect.Root value={value} onValueChange={handleSelect}>
           <RdxSelect.Trigger
             aria-label="Selecione o tipo de conta"
+            disabled={isLoadingData}
             className={cn(
-              "relative flex h-[52px] w-full cursor-pointer items-center rounded-lg border border-gray-400 bg-white px-3 pt-4 text-gray-800 transition-colors duration-300 ease-in-out outline-none focus:border-gray-800",
+              "relative flex h-[52px] w-full items-center rounded-lg border border-gray-400 bg-white px-3 pt-4 text-gray-800 transition-all duration-300 ease-in-out outline-none focus:border-gray-800 enabled:cursor-pointer disabled:opacity-70",
               error && "!border-red-500",
               className,
             )}
@@ -61,7 +65,17 @@ export function Select({
             <RdxSelect.Value />
 
             <RdxSelect.Icon className="absolute top-1/2 right-3 -translate-y-1/2">
-              <ChevronDownIcon className="h-6 w-6 text-gray-800" />
+              {isLoadingData && (
+                <Loader
+                  indicatorColor="#1e2939"
+                  trackColor="#ffffff"
+                  className="h-4 w-4"
+                />
+              )}
+
+              {!isLoadingData && (
+                <ChevronDownIcon className="h-6 w-6 text-gray-800" />
+              )}
             </RdxSelect.Icon>
           </RdxSelect.Trigger>
 
@@ -96,6 +110,10 @@ export function Select({
       </div>
 
       {error && <ErrorInputMessage error={error} />}
+
+      {!error && options.length === 0 && (
+        <ErrorInputMessage error="Cadastre uma conta bancária." />
+      )}
     </div>
   );
 }

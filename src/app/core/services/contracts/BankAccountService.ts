@@ -15,32 +15,19 @@ export class BankAccountService implements BanKAccountServiceInterface {
     this.httpClient = httpClient;
   }
 
-  async getAll(): Promise<BankAccountResponse[]> {
-    const data =
-      await this.httpClient.get<BankAccountResponse[]>("/bank-accounts");
-
-    return data;
+  getAll(): Promise<BankAccountResponse[]> {
+    return this.httpClient.get<BankAccountResponse[]>("/bank-accounts");
   }
 
-  async create(params: BankAccountCreate): Promise<BankAccountResponse> {
-    const data = await this.httpClient.post<BankAccountResponse>(
-      "/bank-accounts",
-      params,
-    );
-
-    return data;
+  create(params: BankAccountCreate): Promise<void> {
+    return this.httpClient.post("/bank-accounts", params);
   }
 
-  async update({
-    id,
-    ...params
-  }: BankAccountUpdate): Promise<BankAccountResponse> {
-    const data = await this.httpClient.put<BankAccountResponse>(
+  update({ id, ...params }: BankAccountUpdate): Promise<BankAccountResponse> {
+    return this.httpClient.put<BankAccountResponse>(
       `/bank-accounts/${id}`,
       params,
     );
-
-    return data;
   }
 
   delete(bankAccountId: BankAccountId): void {

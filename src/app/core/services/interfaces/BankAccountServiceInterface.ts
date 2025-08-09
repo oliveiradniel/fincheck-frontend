@@ -7,7 +7,7 @@ import type {
 
 export interface BanKAccountServiceInterface {
   getAll(): Promise<BankAccountResponse[]>;
-  create(params: BankAccountCreate): Promise<BankAccountResponse>;
+  create(params: BankAccountCreate): Promise<void>;
   update(params: BankAccountUpdate): Promise<BankAccountResponse>;
   delete(bankAccountId: BankAccountId): void;
 }

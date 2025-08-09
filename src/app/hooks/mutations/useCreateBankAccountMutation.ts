@@ -11,8 +11,8 @@ export function useCreateBankAccountMutation() {
   const bankAccountService = makeBankAccountService(clearSession);
 
   const { mutateAsync, isPending, isError } = useMutation({
-    mutationFn: async (bankAccount: BankAccountCreate) => {
-      bankAccountService.create(bankAccount);
+    mutationFn: (bankAccount: BankAccountCreate) => {
+      return bankAccountService.create(bankAccount);
     },
   });
 

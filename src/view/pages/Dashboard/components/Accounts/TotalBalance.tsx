@@ -14,7 +14,7 @@ interface TotalBalanceProps {
 export function TotalBalance({ isLoading }: TotalBalanceProps) {
   const { areValuesVisible, onToogleValuesVisibility } = useDashboardContext();
 
-  const { totalBalance, isRefetchingAccounts } = useAccountsController();
+  const { totalBalance, isRefetchingBankAccounts } = useAccountsController();
 
   return (
     <div className="flex flex-col text-white">
@@ -35,11 +35,11 @@ export function TotalBalance({ isLoading }: TotalBalanceProps) {
           {isLoading ? "-------" : formatCurrency(totalBalance)}
         </strong>
 
-        {(isLoading || isRefetchingAccounts) && (
+        {(isLoading || isRefetchingBankAccounts) && (
           <Loader className={"h-4 w-4"} />
         )}
 
-        {!isLoading && !isRefetchingAccounts && (
+        {!isLoading && !isRefetchingBankAccounts && (
           <button
             aria-expanded={areValuesVisible}
             aria-label={

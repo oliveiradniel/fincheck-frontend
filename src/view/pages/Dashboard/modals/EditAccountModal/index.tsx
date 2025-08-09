@@ -132,6 +132,7 @@ export function EditAccountModal() {
         </div>
 
         <Button
+          aria-disabled={isUpdatingBankAccount}
           type="submit"
           isLoading={isUpdatingBankAccount}
           className="mt-6 w-full"

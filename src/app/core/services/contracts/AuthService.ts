@@ -12,17 +12,11 @@ export class AuthService implements AuthServiceInterface {
     this.httpClient = httpClient;
   }
 
-  async signin(credentials: SignInParams): Promise<AuthResponse> {
-    return await this.httpClient.post<AuthResponse>(
-      "/auth/signin",
-      credentials,
-    );
+  signin(credentials: SignInParams): Promise<AuthResponse> {
+    return this.httpClient.post<AuthResponse>("/auth/signin", credentials);
   }
 
-  async signup(credentials: SignUpParams): Promise<AuthResponse> {
-    return await this.httpClient.post<AuthResponse>(
-      "/auth/signup",
-      credentials,
-    );
+  signup(credentials: SignUpParams): Promise<AuthResponse> {
+    return this.httpClient.post<AuthResponse>("/auth/signup", credentials);
   }
 }

@@ -16,12 +16,12 @@ export function useAccountsController() {
 
   const windowWidth = useWindowWidth();
 
-  const { accounts, isLoadingAccounts, isRefetchingAccounts } =
+  const { bankAccounts, isLoadingBankAccounts, isRefetchingBankAccounts } =
     useGetAllBankAccountsQuery();
 
   const slidesPerScreen = windowWidth >= 500 ? 2 : 1;
 
-  const isEnd = accounts.length <= slidesPerScreen;
+  const isEnd = bankAccounts.length <= slidesPerScreen;
 
   const [sliderState, setSliderState] = useState({
     isBeginning: true,
@@ -38,24 +38,22 @@ export function useAccountsController() {
   }, [isEnd]);
 
   const totalBalance = useMemo(() => {
-    if (!accounts) return 0;
-
-    return accounts.reduce((total, account) => {
+    return bankAccounts.reduce((total, account) => {
       return total + account.currentBalance;
     }, 0);
-  }, [accounts]);
+  }, [bankAccounts]);
 
   return {
     isEditAccountModalOpen,
-    accounts: accounts,
+    bankAccounts,
     totalBalance,
-    hasAccounts: accounts?.length > 0,
-    emptyAccounts: accounts.length === 0,
+    hasAccounts: bankAccounts?.length > 0,
+    emptyAccounts: bankAccounts.length === 0,
     windowWidth,
     sliderState,
     areValuesVisible,
-    isLoadingAccounts,
-    isRefetchingAccounts,
+    isLoadingBankAccounts,
+    isRefetchingBankAccounts,
     openEditAccountModal,
     closeEditAccountModal,
     setSliderState,

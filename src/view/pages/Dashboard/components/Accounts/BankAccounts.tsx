@@ -14,24 +14,24 @@ export function BankAccounts() {
   const windowWidth = useWindowWidth();
 
   const {
-    accounts,
+    bankAccounts,
     hasAccounts,
     emptyAccounts,
-    isLoadingAccounts,
-    isRefetchingAccounts,
+    isLoadingBankAccounts,
+    isRefetchingBankAccounts,
     sliderState,
     setSliderState,
   } = useAccountsController();
 
   return (
     <div className="mt-10 flex flex-1 flex-col justify-end md:mt-0">
-      {isLoadingAccounts && (
+      {isLoadingBankAccounts && (
         <strong className="mb-4 text-lg tracking-[-1px] text-white">
           Minhas contas
         </strong>
       )}
 
-      {!isLoadingAccounts && emptyAccounts && <EmptyAccounts />}
+      {!isLoadingBankAccounts && emptyAccounts && <EmptyAccounts />}
 
       <div>
         <Swiper
@@ -50,7 +50,7 @@ export function BankAccounts() {
             })
           }
         >
-          {!isLoadingAccounts && hasAccounts && (
+          {!isLoadingBankAccounts && hasAccounts && (
             <div
               slot="container-start"
               className="mb-4 flex items-center justify-between"
@@ -60,26 +60,26 @@ export function BankAccounts() {
                   Minhas contas
                 </strong>
 
-                {isRefetchingAccounts && <Loader className="h-4 w-4" />}
+                {isRefetchingBankAccounts && <Loader className="h-4 w-4" />}
               </div>
 
               <SliderNavigation
                 isBeginning={sliderState.isBeginning}
                 isEnd={sliderState.isEnd}
-                isDisabled={isLoadingAccounts}
+                isDisabled={isLoadingBankAccounts}
               />
             </div>
           )}
 
-          {isLoadingAccounts &&
+          {isLoadingBankAccounts &&
             [...Array(2)].map((_, index) => (
               <SwiperSlide key={index}>
                 <SkeletonCard />
               </SwiperSlide>
             ))}
 
-          {!isLoadingAccounts &&
-            accounts.map((account) => (
+          {!isLoadingBankAccounts &&
+            bankAccounts.map((account) => (
               <SwiperSlide key={account.id}>
                 <Card data={account} />
               </SwiperSlide>
