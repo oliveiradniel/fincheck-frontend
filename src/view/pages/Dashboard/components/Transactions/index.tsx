@@ -11,10 +11,10 @@ import { FiltersModal } from "./FiltersModal";
 
 export function Transactions() {
   const {
-    transactions,
     hasTransactions,
     emptyTransactions,
-    isLoading,
+    isLoadingTransactions,
+    isRefetchingTransactions,
     isFilteredModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
@@ -29,28 +29,29 @@ export function Transactions() {
 
       <header>
         <div className="flex items-center justify-between">
-          <TransactionTypeFilterButton isDisabled={isLoading} />
+          <TransactionTypeFilterButton
+            isLoading={isRefetchingTransactions}
+            isDisabled={isLoadingTransactions}
+          />
 
-          <FilterButton disabled={isLoading} onClick={handleOpenFiltersModal} />
+          <FilterButton
+            disabled={isLoadingTransactions}
+            onClick={handleOpenFiltersModal}
+          />
         </div>
 
         <div className="relative mt-6 p-3">
-          <MonthSlidersFilter isDisabled={isLoading} />
+          <MonthSlidersFilter isDisabled={isLoadingTransactions} />
         </div>
       </header>
 
       <div className="mt-4 flex-1 overflow-y-auto">
-        {isLoading &&
+        {isLoadingTransactions &&
           [...Array(6)].map((_, index) => <SkeletonTransaction key={index} />)}
 
-        {!isLoading && emptyTransactions && <EmptyTransactions />}
+        {!isLoadingTransactions && emptyTransactions && <EmptyTransactions />}
 
-        {!isLoading && hasTransactions && (
-          <TransactionList
-            transactions={transactions}
-            hasTransactions={hasTransactions}
-          />
-        )}
+        {!isLoadingTransactions && hasTransactions && <TransactionList />}
       </div>
     </div>
   );

@@ -1,13 +1,15 @@
 import { useState } from "react";
 
 import { useDashboardContext } from "../DashboardContext/useDashboardContext";
+import { useGetAllTransactionsQuery } from "@/app/hooks/queries/useGetAllTransactionsQuery";
 
 export function useTransactionsController() {
   const { areValuesVisible } = useDashboardContext();
 
   const [isFilteredModalOpen, setIsFilteredModalOpen] = useState(false);
 
-  const transactions = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const { transactions, isLoadingTransactions, isRefetchingTransactions } =
+    useGetAllTransactionsQuery({ month: 7, year: 2025 });
 
   function handleOpenFiltersModal() {
     setIsFilteredModalOpen(true);
@@ -22,7 +24,8 @@ export function useTransactionsController() {
     hasTransactions: transactions.length > 0,
     emptyTransactions: transactions.length === 0,
     areValuesVisible,
-    isLoading: false,
+    isLoadingTransactions,
+    isRefetchingTransactions,
     isFilteredModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,

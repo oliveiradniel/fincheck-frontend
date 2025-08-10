@@ -5,7 +5,12 @@ export interface Transaction {
   bankAccountId: string;
   transactionCategoryId: string;
   name: string;
-  value: string;
-  date: Date;
+  value: number;
+  date: string;
   type: TransactionType;
+  transactionCategory?: {
+    id: string;
+    name: string;
+    icon: string;
+  };
 }
