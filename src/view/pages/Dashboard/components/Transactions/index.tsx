@@ -3,7 +3,7 @@ import { useTransactionsController } from "./useTransactionsController";
 import { SkeletonTransaction } from "./SkeletonTransaction";
 import { EmptyTransactions } from "./EmptyTransactions";
 
-import { TransactionTypeFilterButton } from "./TransactionTypeFilterButton";
+import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
 import { FilterButton } from "./FilterButton";
 import { MonthSlidersFilter } from "./MonthSlidersFilter";
 import { TransactionList } from "./TransactionList";
@@ -11,13 +11,14 @@ import { FiltersModal } from "./FiltersModal";
 
 export function Transactions() {
   const {
-    hasTransactions,
+    filters,
     emptyTransactions,
     isLoadingTransactions,
     isRefetchingTransactions,
     isFilteredModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
+    handleChangeFilters,
   } = useTransactionsController();
 
   return (
@@ -29,9 +30,11 @@ export function Transactions() {
 
       <header>
         <div className="flex items-center justify-between">
-          <TransactionTypeFilterButton
+          <TransactionTypeDropdown
+            selectedType={filters.type}
             isLoading={isRefetchingTransactions}
             isDisabled={isLoadingTransactions}
+            onSelect={handleChangeFilters("type")}
           />
 
           <FilterButton
@@ -46,12 +49,18 @@ export function Transactions() {
       </header>
 
       <div className="mt-4 flex-1 overflow-y-auto">
-        {isLoadingTransactions &&
-          [...Array(6)].map((_, index) => <SkeletonTransaction key={index} />)}
+        {isLoadingTransactions && (
+          <div className="space-y-2">
+            {[...Array(6)].map((_, index) => (
+              <SkeletonTransaction key={index} />
+            ))}
+          </div>
+        )}
 
-        {!isLoadingTransactions && emptyTransactions && <EmptyTransactions />}
+        {(!isLoadingTransactions || !isRefetchingTransactions) &&
+          emptyTransactions && <EmptyTransactions />}
 
-        {!isLoadingTransactions && hasTransactions && <TransactionList />}
+        <TransactionList />
       </div>
     </div>
   );

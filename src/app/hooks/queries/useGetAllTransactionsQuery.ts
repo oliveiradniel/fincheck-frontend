@@ -14,6 +14,7 @@ export function useGetAllTransactionsQuery(filters: TransactionsFilters) {
     data = [],
     isLoading,
     isRefetching,
+    refetch,
   } = useQuery({
     queryKey: ["transactions"],
     queryFn: () => {
@@ -24,5 +25,6 @@ export function useGetAllTransactionsQuery(filters: TransactionsFilters) {
     transactions: data,
     isLoadingTransactions: isLoading,
     isRefetchingTransactions: isRefetching,
+    refetchTransactions: refetch,
   };
 }

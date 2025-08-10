@@ -1,3 +1,5 @@
+import { useTransactionsController } from "./useTransactionsController";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { MONTHS } from "@/app/config/constants";
@@ -10,6 +12,8 @@ interface MonthSlidersFilterProps {
 }
 
 export function MonthSlidersFilter({ isDisabled }: MonthSlidersFilterProps) {
+  const { filters, handleChangeFilters } = useTransactionsController();
+
   return (
     <Swiper
       role="list"
@@ -18,6 +22,10 @@ export function MonthSlidersFilter({ isDisabled }: MonthSlidersFilterProps) {
       spaceBetween={6}
       slidesPerView={3}
       centeredSlides
+      initialSlide={filters.month}
+      onSlideChange={(swiper) => {
+        handleChangeFilters("month")(swiper.realIndex);
+      }}
     >
       <SliderNavigation isDisabled={isDisabled} />
       {MONTHS.map((month, index) => (

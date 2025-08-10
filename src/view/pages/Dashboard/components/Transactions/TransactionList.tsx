@@ -10,7 +10,10 @@ import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
 export function TransactionList() {
   const { areValuesVisible } = useDashboardContext();
 
-  const { transactions, hasTransactions } = useTransactionsController();
+  const { transactions, isLoadingTransactions, hasTransactions } =
+    useTransactionsController();
+
+  if (isLoadingTransactions || !hasTransactions) return null;
 
   return (
     <ul
