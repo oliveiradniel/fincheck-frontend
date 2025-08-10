@@ -16,9 +16,10 @@ export function Transactions() {
     isLoadingTransactions,
     isRefetchingTransactions,
     isFilteredModalOpen,
+    handleChangeFilters,
+    handleApplyFilters,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
-    handleChangeFilters,
   } = useTransactionsController();
 
   return (
@@ -26,6 +27,7 @@ export function Transactions() {
       <FiltersModal
         isOpen={isFilteredModalOpen}
         onClose={handleCloseFiltersModal}
+        onApplyFilters={handleApplyFilters}
       />
 
       <header>

@@ -1,4 +1,4 @@
-import { useFiltersModal } from "./useFiltersModal";
+import { useFiltersModalController } from "./useFiltersModalController";
 
 import { cn } from "@/app/utils/cn";
 
@@ -10,21 +10,24 @@ import { Modal } from "@/view/components/Modal";
 interface FiltersModalProps {
   isOpen: boolean;
   onClose(): void;
+  onApplyFilters(filters: {
+    bankAccountId: string | undefined;
+    year: number;
+  }): void;
 }
 
-const mockedAccounts = [
-  { id: "123", name: "Nubank" },
-  { id: "456", name: "XP Investimentos" },
-  { id: "789", name: "Dinheiro" },
-];
-
-export function FiltersModal({ isOpen, onClose }: FiltersModalProps) {
+export function FiltersModal({
+  isOpen,
+  onClose,
+  onApplyFilters,
+}: FiltersModalProps) {
   const {
+    bankAccounts,
     selectedBankAccountId,
     selectedYear,
     handleSelectBankAccount,
     handleChangeYear,
-  } = useFiltersModal();
+  } = useFiltersModalController();
 
   return (
     <Modal
@@ -39,7 +42,7 @@ export function FiltersModal({ isOpen, onClose }: FiltersModalProps) {
         </h2>
 
         <div aria-live="polite" className="mt-2 space-y-2">
-          {mockedAccounts.map(({ id, name }) => {
+          {bankAccounts.map(({ id, name }) => {
             const isActive = id === selectedBankAccountId;
 
             return (
@@ -96,7 +99,17 @@ export function FiltersModal({ isOpen, onClose }: FiltersModalProps) {
         </div>
       </fieldset>
 
-      <Button className="w-full">Aplicar filtros</Button>
+      <Button
+        className="w-full"
+        onClick={() =>
+          onApplyFilters({
+            bankAccountId: selectedBankAccountId,
+            year: selectedYear,
+          })
+        }
+      >
+        Aplicar filtros
+      </Button>
     </Modal>
   );
 }
