@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useDashboardContext } from "../../components/DashboardContext/useDashboardContext";
 import { useQueryClient } from "@tanstack/react-query";
@@ -11,11 +12,10 @@ import { TransactionSchema } from "@/app/schemas/transaction/TransactionSchema";
 import toast from "react-hot-toast";
 
 import { isEmptyObject } from "@/app/utils/isEmptyObject";
+import { currencyStringToNumber } from "@/app/utils/currencyStringToNumber";
 
 import type { TransactionForm } from "@/@types/transaction/Transaction";
 import type { Option } from "@/view/components/Select";
-import { useMemo } from "react";
-import { currencyStringToNumber } from "@/app/utils/currencyStringToNumber";
 
 export function useNewTransactionModalController() {
   const queryClient = useQueryClient();
@@ -88,6 +88,7 @@ export function useNewTransactionModalController() {
 
   const inputPlaceholder = `Nome da ${isExpense ? "despesa" : "receita"}`;
   const selectPlaceholder = `${isExpense ? "Pagar" : "Receber"} com`;
+
   const buttonLabel = `${isExpense ? "Cadastrar despesa" : "Cadastrar receita"}`;
 
   const transactionCategories = useMemo(() => {

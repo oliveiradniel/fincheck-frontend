@@ -4,6 +4,7 @@ import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 import { useGetAllTransactionsQuery } from "@/app/hooks/queries/useGetAllTransactionsQuery";
 
 import type { TransactionsFilters } from "@/@types/transaction/Transaction";
+import type { Transaction } from "@/@entities/Transaction";
 
 export function useTransactionsController() {
   const { areValuesVisible } = useDashboardContext();
@@ -13,6 +14,10 @@ export function useTransactionsController() {
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
   });
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [transactionBeingEdited, setTransactionBeingEdited] =
+    useState<Transaction | null>(null);
 
   const {
     transactions,
@@ -59,12 +64,24 @@ export function useTransactionsController() {
     setIsFilteredModalOpen(false);
   }
 
+  function handleOpenModal(transaction: Transaction) {
+    setIsEditModalOpen(true);
+    setTransactionBeingEdited(transaction);
+  }
+
+  function handleCloseModal() {
+    setIsEditModalOpen(false);
+    setTransactionBeingEdited(null);
+  }
+
   return {
     transactions,
+    transactionBeingEdited,
     hasTransactions: transactions.length > 0,
     emptyTransactions: transactions.length === 0,
     filters,
     areValuesVisible,
+    isEditModalOpen,
     isLoadingTransactions,
     isRefetchingTransactions,
     isFilteredModalOpen,
@@ -72,5 +89,7 @@ export function useTransactionsController() {
     handleApplyFilters,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
+    handleOpenModal,
+    handleCloseModal,
   };
 }
