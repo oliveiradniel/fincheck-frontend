@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useAuthContext } from "../useAuthContext";
+import { useAuthContext } from "@/app/contexts/auth/useAuthContext";
 
 import { makeTransactionService } from "@/app/factories/makeTransactionService";
 

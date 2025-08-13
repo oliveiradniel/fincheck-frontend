@@ -1,45 +1,44 @@
-import { useLoginController } from "@/view/presentation/controllers/useLoginController";
+import { useRegisterController } from "./useRegisterController";
 
-import { SessionLayout } from "@/view/layouts/SessionLayout";
-
-import { CrossCircledIcon } from "@radix-ui/react-icons";
+import { SessionTemplate } from "@/view/SessionTemplate";
 
 import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
-export function Login() {
+export function Register() {
   const {
     handleSubmit,
     register,
     requestErrorMessage,
-    errors,
-    hasFormError,
+    formErrors,
     isAuthenticating,
+    hasFormError,
     hasAuthenticateError,
-  } = useLoginController();
+  } = useRegisterController();
 
   return (
-    <SessionLayout type="login">
+    <SessionTemplate type="register">
       <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
+        <Input
+          type="text"
+          placeholder="Nome"
+          error={formErrors.name?.message}
+          {...register("name")}
+        />
+
         <Input
           type="email"
           placeholder="E-mail"
-          error={errors.email?.message}
+          error={formErrors.email?.message || requestErrorMessage}
           {...register("email")}
         />
+
         <Input
           type="password"
           placeholder="Senha"
-          error={errors.password?.message}
+          error={formErrors.password?.message}
           {...register("password")}
         />
-
-        {requestErrorMessage && (
-          <div className="flex items-center gap-2 text-red-500">
-            <CrossCircledIcon />
-            <span className="text-xs">{requestErrorMessage}</span>
-          </div>
-        )}
 
         <Button
           type="submit"
@@ -47,9 +46,9 @@ export function Login() {
           isLoading={isAuthenticating}
           className="mt-2"
         >
-          {hasAuthenticateError ? "Tentar novamente" : "Entrar"}
+          {hasAuthenticateError ? "Tentar novamente" : "Criar conta"}
         </Button>
       </form>
-    </SessionLayout>
+    </SessionTemplate>
   );
 }

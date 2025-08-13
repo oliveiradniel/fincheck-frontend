@@ -26,7 +26,7 @@ export function EditTransactionModal({
 }: EditTransactionModalProps) {
   const {
     transactionCategoriesMap,
-    accountsMap,
+    bankAccountsMap,
     isDeleteModalOpen,
     isExpense,
     title,
@@ -141,7 +141,7 @@ export function EditTransactionModal({
                   isLoadingBankAccounts || isRefetchingBankAccounts
                 }
                 error={formErrors.bankAccountId?.message}
-                options={accountsMap}
+                options={bankAccountsMap}
               />
             )}
           />

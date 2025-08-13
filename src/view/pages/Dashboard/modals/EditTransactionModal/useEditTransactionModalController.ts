@@ -135,7 +135,7 @@ export function useEditTransactionModalController(
     ({ id, name }) => ({ value: id, label: name }),
   );
 
-  const accountsMap: Option[] = bankAccounts.map(({ id, name }) => ({
+  const bankAccountsMap: Option[] = bankAccounts.map(({ id, name }) => ({
     value: id,
     label: name,
   }));
@@ -150,7 +150,7 @@ export function useEditTransactionModalController(
   const selectPlaceholder = `${isExpense ? "Pagar" : "Receber"} com`;
 
   return {
-    accountsMap,
+    bankAccountsMap,
     isDeleteModalOpen,
     isExpense,
     title,

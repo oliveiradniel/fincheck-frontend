@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useAuthContext } from "@/app/hooks/useAuthContext";
+import { useAuthContext } from "@/app/contexts/auth/useAuthContext";
 
 import { ExitIcon } from "@radix-ui/react-icons";
 

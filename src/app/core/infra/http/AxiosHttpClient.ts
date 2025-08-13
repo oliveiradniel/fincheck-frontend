@@ -11,7 +11,7 @@ import { localStorageKeys } from "@/app/config/localStorageKeys";
 import type {
   HttpRequestConfig,
   HttpClientInterface,
-} from "@/@types/services/HttpClientInterface";
+} from "./HttpClientInterface";
 
 function mapToAxiosConfig(config?: HttpRequestConfig): AxiosRequestConfig {
   return {

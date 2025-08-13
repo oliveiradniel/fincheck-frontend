@@ -4,7 +4,7 @@ import { useDashboardContext } from "../../components/DashboardContext/useDashbo
 import { useCreateBankAccountMutation } from "@/app/hooks/mutations/useCreateBankAccountMutation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateBankAccountSchema } from "@/app/schemas/bankAccount/CreateBankAccountSchema.ts";
+import { BankAccountSchema } from "@/app/schemas/bankAccount/BankAccountSchema";
 
 import toast from "react-hot-toast";
 
@@ -25,7 +25,7 @@ export function useNewAccountModalController() {
     reset,
     formState: { errors },
   } = useForm<BankAccountForm>({
-    resolver: zodResolver(CreateBankAccountSchema),
+    resolver: zodResolver(BankAccountSchema),
   });
 
   const {

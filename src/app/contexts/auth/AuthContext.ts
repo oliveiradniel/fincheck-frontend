@@ -3,11 +3,13 @@ import { createContext } from "react";
 import type { AccessToken } from "@/@types/auth/AccessToken";
 import type { User } from "@/@entities/User";
 
+export type ClearSession = () => void;
+
 interface AuthContextResponse {
   loggedUser: User | undefined;
   signedIn: boolean;
   createSession(accessToken: AccessToken): void;
-  clearSession(): void;
+  clearSession: ClearSession;
 }
 
 export const AuthContext = createContext({} as AuthContextResponse);

@@ -1,5 +1,5 @@
 import type { TransactionCategoryServiceInterface } from "../interfaces/TransactionCategoryServiceInterface";
-import type { HttpClientInterface } from "@/@types/services/HttpClientInterface";
+import type { HttpClientInterface } from "@/app/core/infra/http/HttpClientInterface";
 
 import type { TransactionCategoryResponse } from "@/@types/transaction/TransactionCategory";
 

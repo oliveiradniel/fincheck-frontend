@@ -1,6 +1,6 @@
-import { AxiosHttpClient } from "@/app/infra/http/AxiosHttpClient";
+import { AxiosHttpClient } from "@/app/core/infra/http/AxiosHttpClient";
 
-import type { ClearSession } from "@/@types/services/HttpClientInterface";
+import type { ClearSession } from "../contexts/auth/AuthContext";
 
 export function makeAxiosHttpClient(
   baseURL: string,

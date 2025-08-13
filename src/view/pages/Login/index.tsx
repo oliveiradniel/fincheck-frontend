@@ -1,44 +1,45 @@
-import { useRegisterController } from "@/view/presentation/controllers/useRegisterController";
+import { useLoginController } from "./useLoginController";
 
-import { SessionLayout } from "@/view/layouts/SessionLayout";
+import { SessionTemplate } from "@/view/SessionTemplate";
+
+import { CrossCircledIcon } from "@radix-ui/react-icons";
 
 import { Input } from "@/view/components/Input";
 import { Button } from "@/view/components/Button";
 
-export function Register() {
+export function Login() {
   const {
     handleSubmit,
     register,
     requestErrorMessage,
-    formErrors,
-    isAuthenticating,
+    errors,
     hasFormError,
+    isAuthenticating,
     hasAuthenticateError,
-  } = useRegisterController();
+  } = useLoginController();
 
   return (
-    <SessionLayout type="register">
+    <SessionTemplate type="login">
       <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
-        <Input
-          type="text"
-          placeholder="Nome"
-          error={formErrors.name?.message}
-          {...register("name")}
-        />
-
         <Input
           type="email"
           placeholder="E-mail"
-          error={formErrors.email?.message || requestErrorMessage}
+          error={errors.email?.message}
           {...register("email")}
         />
-
         <Input
           type="password"
           placeholder="Senha"
-          error={formErrors.password?.message}
+          error={errors.password?.message}
           {...register("password")}
         />
+
+        {requestErrorMessage && (
+          <div className="flex items-center gap-2 text-red-500">
+            <CrossCircledIcon />
+            <span className="text-xs">{requestErrorMessage}</span>
+          </div>
+        )}
 
         <Button
           type="submit"
@@ -46,9 +47,9 @@ export function Register() {
           isLoading={isAuthenticating}
           className="mt-2"
         >
-          {hasAuthenticateError ? "Tentar novamente" : "Criar conta"}
+          {hasAuthenticateError ? "Tentar novamente" : "Entrar"}
         </Button>
       </form>
-    </SessionLayout>
+    </SessionTemplate>
   );
 }

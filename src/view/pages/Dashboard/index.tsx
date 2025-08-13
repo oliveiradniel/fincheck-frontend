@@ -2,10 +2,10 @@ import { DashboardProvider } from "./components/DashboardContext/DashboardProvid
 
 import { NewAccountModal } from "./modals/NewAccountModal";
 import { NewTransactionModal } from "./modals/NewTransactionModal";
-import { EditAccountModal } from "./modals/EditAccountModal";
+import { EditBankAccountModal } from "./modals/EditBankAccountModal";
 
 import { FAB } from "./components/FAB";
-import { Accounts } from "./components/Accounts";
+import { BankAccounts } from "./components/BankAccounts";
 import { Transactions } from "./components/Transactions";
 
 import { Logo } from "@/view/components/Logo";
@@ -21,7 +21,7 @@ export function Dashboard() {
             <NewAccountModal />
             <NewTransactionModal />
 
-            {accountBeingEdited && <EditAccountModal />}
+            {accountBeingEdited && <EditBankAccountModal />}
 
             <header className="flex h-12 items-center justify-between">
               <Logo className="h-6 text-moss-green" />
@@ -30,7 +30,7 @@ export function Dashboard() {
 
             <main className="flex max-h-[calc(100%-48px)] flex-1 flex-col gap-4 md:flex-row">
               <div className="w-full md:w-1/2">
-                <Accounts />
+                <BankAccounts />
               </div>
 
               <div className="w-full md:w-1/2">

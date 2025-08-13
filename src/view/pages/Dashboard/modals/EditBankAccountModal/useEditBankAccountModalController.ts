@@ -6,7 +6,7 @@ import { useUpdateBankAccountMutation } from "@/app/hooks/mutations/useUpdateBan
 import { useDeleteBankAccountMutation } from "@/app/hooks/mutations/useDeleteBankAccountMutation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UpdateBankAccountSchema } from "@/app/schemas/bankAccount/UpdateBankAccountSchema";
+import { BankAccountSchema } from "@/app/schemas/bankAccount/BankAccountSchema";
 
 import toast from "react-hot-toast";
 
@@ -15,7 +15,7 @@ import { currencyStringToNumber } from "@/app/utils/currencyStringToNumber";
 
 import type { BankAccountForm } from "@/@types/bankAccount/BankAccount";
 
-export function useEditAccountModalController() {
+export function useEditBankAccountModalController() {
   const queryClient = useQueryClient();
 
   const { isEditAccountModalOpen, accountBeingEdited, closeEditAccountModal } =
@@ -27,7 +27,7 @@ export function useEditAccountModalController() {
     register,
     formState: { errors },
   } = useForm<BankAccountForm>({
-    resolver: zodResolver(UpdateBankAccountSchema),
+    resolver: zodResolver(BankAccountSchema),
     defaultValues: {
       initialBalance: accountBeingEdited?.initialBalance,
       name: accountBeingEdited?.name,

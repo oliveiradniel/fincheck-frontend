@@ -2,7 +2,7 @@ import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 
 import { PlusIcon } from "@radix-ui/react-icons";
 
-export function EmptyAccounts() {
+export function EmptyBankAccounts() {
   const { openNewAccountModal } = useDashboardContext();
 
   return (

@@ -103,7 +103,7 @@ export function useNewTransactionModalController() {
     ({ id, name }) => ({ value: id, label: name }),
   );
 
-  const accountsMap: Option[] = bankAccounts.map(({ id, name }) => ({
+  const bankAccountsMap: Option[] = bankAccounts.map(({ id, name }) => ({
     value: id,
     label: name,
   }));
@@ -114,7 +114,7 @@ export function useNewTransactionModalController() {
     inputPlaceholder,
     selectPlaceholder,
     buttonLabel,
-    accountsMap,
+    bankAccountsMap,
     isExpense,
     control,
     transactionCategoriesMap,

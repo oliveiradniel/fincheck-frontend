@@ -16,7 +16,7 @@ export function NewTransactionModal() {
     selectPlaceholder,
     buttonLabel,
     transactionCategoriesMap,
-    accountsMap,
+    bankAccountsMap,
     isExpense,
     control,
     isNewTransactionModalOpen,
@@ -101,7 +101,7 @@ export function NewTransactionModal() {
                   isLoadingBankAccounts || isRefetchingBankAccounts
                 }
                 error={formErrors.bankAccountId?.message}
-                options={accountsMap}
+                options={bankAccountsMap}
               />
             )}
           />

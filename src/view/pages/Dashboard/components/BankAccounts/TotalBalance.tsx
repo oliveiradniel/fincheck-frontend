@@ -1,5 +1,5 @@
 import { useDashboardContext } from "../DashboardContext/useDashboardContext";
-import { useAccountsController } from "./useAccountsController";
+import { useBankAccountsController } from "./useBankAccountsController";
 
 import { cn } from "@/app/utils/cn";
 import { formatCurrency } from "@/app/utils/formatCurrency";
@@ -14,7 +14,8 @@ interface TotalBalanceProps {
 export function TotalBalance({ isLoading }: TotalBalanceProps) {
   const { areValuesVisible, onToogleValuesVisibility } = useDashboardContext();
 
-  const { totalBalance, isRefetchingBankAccounts } = useAccountsController();
+  const { totalBalance, isRefetchingBankAccounts } =
+    useBankAccountsController();
 
   return (
     <div className="flex flex-col text-white">

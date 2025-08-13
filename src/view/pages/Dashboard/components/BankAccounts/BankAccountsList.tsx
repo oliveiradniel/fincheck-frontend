@@ -1,27 +1,27 @@
 import { useWindowWidth } from "@/app/hooks/useWindowWidth";
-import { useAccountsController } from "./useAccountsController";
+import { useBankAccountsController } from "./useBankAccountsController";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Loader } from "@/view/components/Loader";
-import { EmptyAccounts } from "./EmptyAccounts";
+import { EmptyBankAccounts } from "./EmptyBankAccounts";
 import { SkeletonCard } from "./SkeletonCard";
 
 import { SliderNavigation } from "./SliderNavigation";
 import { Card } from "./Card";
 
-export function BankAccounts() {
+export function BankAccountsList() {
   const windowWidth = useWindowWidth();
 
   const {
     bankAccounts,
-    hasAccounts,
-    emptyAccounts,
+    hasBankAccounts,
+    emptyBankAccounts,
     isLoadingBankAccounts,
     isRefetchingBankAccounts,
     sliderState,
     setSliderState,
-  } = useAccountsController();
+  } = useBankAccountsController();
 
   return (
     <div className="mt-10 flex flex-1 flex-col justify-end md:mt-0">
@@ -31,13 +31,13 @@ export function BankAccounts() {
         </strong>
       )}
 
-      {!isLoadingBankAccounts && emptyAccounts && <EmptyAccounts />}
+      {!isLoadingBankAccounts && emptyBankAccounts && <EmptyBankAccounts />}
 
       <div>
         <Swiper
-          role={hasAccounts ? "list" : undefined}
+          role={hasBankAccounts ? "list" : undefined}
           aria-label={
-            hasAccounts
+            hasBankAccounts
               ? "Suas contas bancárias cadastradas"
               : "Não há contas bancárias"
           }
@@ -50,7 +50,7 @@ export function BankAccounts() {
             })
           }
         >
-          {!isLoadingBankAccounts && hasAccounts && (
+          {!isLoadingBankAccounts && hasBankAccounts && (
             <div
               slot="container-start"
               className="mb-4 flex items-center justify-between"

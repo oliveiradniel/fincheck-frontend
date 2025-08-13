@@ -5,7 +5,7 @@ interface SessionLayoutProps {
   type: "login" | "register";
 }
 
-export function SessionLayout({ children, type }: SessionLayoutProps) {
+export function SessionTemplate({ children, type }: SessionLayoutProps) {
   const ariaId = "session";
 
   const title = type === "login" ? "Entre em sua conta" : "Crie sua conta";

@@ -1,5 +1,5 @@
-import type { HttpClientInterface } from "@/@types/services/HttpClientInterface";
 import type { AuthServiceInterface } from "@/app/core/services/interfaces/AuthServiceInterface";
+import type { HttpClientInterface } from "@/app/core/infra/http/HttpClientInterface";
 
 import type { SignInParams } from "@/@types/auth/Login";
 import type { SignUpParams } from "@/@types/auth/Register";

@@ -1,4 +1,4 @@
-import { useEditAccountModalController } from "./useEditAccountModalController";
+import { useEditBankAccountModalController } from "./useEditBankAccountModalController";
 
 import { Controller } from "react-hook-form";
 
@@ -11,7 +11,7 @@ import { ColorsDropdownInput } from "@/view/components/ColorsDropdownInput";
 import { Button } from "@/view/components/Button";
 import { TrashIcon } from "@/view/components/icons/TrashIcon";
 
-export function EditAccountModal() {
+export function EditBankAccountModal() {
   const {
     control,
     isEditAccountModalOpen,
@@ -27,7 +27,7 @@ export function EditAccountModal() {
     handleCloseDeleteModal,
     handleDeleteAccount,
     register,
-  } = useEditAccountModalController();
+  } = useEditBankAccountModalController();
 
   if (isDeleteModalOpen) {
     return (

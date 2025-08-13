@@ -5,7 +5,7 @@ import { useDashboardContext } from "../DashboardContext/useDashboardContext";
 import { useWindowWidth } from "@/app/hooks/useWindowWidth";
 import { useGetAllBankAccountsQuery } from "@/app/hooks/queries/useGetAllBankAccountsQuery";
 
-export function useAccountsController() {
+export function useBankAccountsController() {
   const {
     isEditAccountModalOpen,
     areValuesVisible,
@@ -47,8 +47,8 @@ export function useAccountsController() {
     isEditAccountModalOpen,
     bankAccounts,
     totalBalance,
-    hasAccounts: bankAccounts?.length > 0,
-    emptyAccounts: bankAccounts.length === 0,
+    hasBankAccounts: bankAccounts?.length > 0,
+    emptyBankAccounts: bankAccounts.length === 0,
     windowWidth,
     sliderState,
     areValuesVisible,

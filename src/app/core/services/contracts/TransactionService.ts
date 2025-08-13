@@ -1,5 +1,5 @@
 import type { TransactionServiceInterface } from "../interfaces/TransactionServiceInterface";
-import type { HttpClientInterface } from "@/@types/services/HttpClientInterface";
+import type { HttpClientInterface } from "@/app/core/infra/http/HttpClientInterface";
 
 import type {
   TranasactionUpdate,
