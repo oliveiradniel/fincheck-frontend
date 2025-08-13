@@ -15,7 +15,7 @@ export function EditAccountModal() {
   const {
     control,
     isEditAccountModalOpen,
-    isDeleteModalOepn,
+    isDeleteModalOpen,
     formErrors,
     isUpdatingBankAccount,
     isDeletingBankAccount,
@@ -29,7 +29,7 @@ export function EditAccountModal() {
     register,
   } = useEditAccountModalController();
 
-  if (isDeleteModalOepn) {
+  if (isDeleteModalOpen) {
     return (
       <ConfirmDeleteModal
         title="Tem certeza que deseja excluir esta conta?"

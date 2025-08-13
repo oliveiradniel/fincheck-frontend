@@ -7,8 +7,11 @@ import { Select } from "@/view/components/Select";
 import { DatePickerInput } from "@/view/components/DatePickerInput";
 import { Controller } from "react-hook-form";
 import { Button } from "@/view/components/Button";
+import { ConfirmDeleteModal } from "@/view/components/ConfirmDeleteModal";
 
 import type { Transaction } from "@/@entities/Transaction";
+
+import { TrashIcon } from "@/view/components/icons/TrashIcon";
 
 interface EditTransactionModalProps {
   transaction: Transaction | null;
@@ -24,6 +27,7 @@ export function EditTransactionModal({
   const {
     transactionCategoriesMap,
     accountsMap,
+    isDeleteModalOpen,
     isExpense,
     title,
     description,
@@ -32,14 +36,32 @@ export function EditTransactionModal({
     control,
     formErrors,
     isUpdatingTransaction,
-    hasUpdateErrorTransaction,
+    isDeletingTransaction,
+    hasErrorUpdateTransaction,
+    hasErrorDeleteTransaction,
     isLoadingTransactionCategories,
     isRefetchingTransactionCategories,
     isLoadingBankAccounts,
     isRefetchingBankAccounts,
     handleSubmit,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteTransaction,
     register,
   } = useEditTransactionModalController(transaction, onClose);
+
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        title={`Tem certeza que deseja excluir esta ${isExpense ? "despesa" : "receita"}?`}
+        description="Excluir conta bancária"
+        isLoading={isDeletingTransaction}
+        hasError={hasErrorDeleteTransaction}
+        onConfirm={handleDeleteTransaction}
+        onClose={handleCloseDeleteModal}
+      />
+    );
+  }
 
   return (
     <Modal
@@ -47,6 +69,15 @@ export function EditTransactionModal({
       title={title}
       description={description}
       onClose={onClose}
+      rightAction={
+        <button
+          type="button"
+          onClick={handleOpenDeleteModal}
+          className="cursor-pointer"
+        >
+          <TrashIcon className="h-6 w-6 text-red-700 transition-colors duration-300 ease-in-out hover:text-red-700/80" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>
@@ -141,7 +172,7 @@ export function EditTransactionModal({
           }
           className="mt-8 w-full"
         >
-          {hasUpdateErrorTransaction ? "Tentar novamente" : "Salvar"}
+          {hasErrorUpdateTransaction ? "Tentar novamente" : "Salvar"}
         </Button>
       </form>
     </Modal>

@@ -36,7 +36,7 @@ export function useEditAccountModalController() {
     },
   });
 
-  const [isDeleteModalOepn, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const {
     updateBankAccount,
@@ -90,16 +90,16 @@ export function useEditAccountModalController() {
 
       closeEditAccountModal();
 
-      toast.success("Conta salva com sucesso!");
+      toast.success("Conta excluída com sucesso!");
     } catch {
-      toast.error("Ocorreu um erro ao salvar sua conta!.");
+      toast.error("Ocorreu um erro ao excluir sua conta!.");
     }
   }
 
   return {
     control,
     isEditAccountModalOpen,
-    isDeleteModalOepn,
+    isDeleteModalOpen,
     formErrors: errors,
     isUpdatingBankAccount,
     isDeletingBankAccount,

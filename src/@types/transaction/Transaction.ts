@@ -3,6 +3,8 @@ import type z from "zod";
 import { TransactionSchema } from "@/app/schemas/transaction/TransactionSchema";
 import type { Transaction } from "@/@entities/Transaction";
 
+export type TransactionId = string;
+
 export type TransactionForm = z.infer<typeof TransactionSchema>;
 
 export type TransactionResponse = Transaction;

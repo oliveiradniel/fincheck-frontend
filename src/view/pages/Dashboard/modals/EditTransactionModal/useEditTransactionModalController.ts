@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetAllTransactionCategoriesQuery } from "@/app/hooks/queries/useGetAllTransactionCategoriesQuery";
 import { useGetAllBankAccountsQuery } from "@/app/hooks/queries/useGetAllBankAccountsQuery";
 import { useUpdateTransactionMutation } from "@/app/hooks/mutations/useUpdateTransactionMutation";
+import { useDeleteTransactionMutation } from "@/app/hooks/mutations/useDeleteTransactionMutation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TransactionSchema } from "@/app/schemas/transaction/TransactionSchema";
@@ -42,6 +43,8 @@ export function useEditTransactionModalController(
     },
   });
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const {
     transactionCategories: transactionCategoriesList,
     isLoadingTransactionCategories,
@@ -57,14 +60,19 @@ export function useEditTransactionModalController(
     hasErrorUpdateTransaction,
   } = useUpdateTransactionMutation();
 
-  const isExpense = transaction?.type === "EXPENSE";
+  const {
+    deleteTransaction,
+    isDeletingTransaction,
+    hasErrorDeleteTransaction,
+  } = useDeleteTransactionMutation();
 
-  const title = isExpense ? "Editar Despesa" : "Editar Receita";
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true);
+  }
 
-  const description = isExpense ? "Editar despesa" : "Editar receita";
-
-  const inputPlaceholder = `Nome da ${isExpense ? "despesa" : "receita"}`;
-  const selectPlaceholder = `${isExpense ? "Pagar" : "Receber"} com`;
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
+  }
 
   const handleSubmit = hookFormHandleSubmit(async (transactionForm) => {
     try {
@@ -101,6 +109,20 @@ export function useEditTransactionModalController(
     }
   });
 
+  async function handleDeleteTransaction() {
+    try {
+      await deleteTransaction(transaction!.id);
+
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+
+      onClose();
+
+      toast.success("Transação excluída com sucesso!");
+    } catch {
+      toast.error("Ocorreu um erro ao excluir sua transação!.");
+    }
+  }
+
   const transactionCategories = useMemo(() => {
     return transactionCategoriesList.filter(
       (category) => category.type === transaction?.type,
@@ -116,8 +138,18 @@ export function useEditTransactionModalController(
     label: name,
   }));
 
+  const isExpense = transaction?.type === "EXPENSE";
+
+  const title = isExpense ? "Editar Despesa" : "Editar Receita";
+
+  const description = isExpense ? "Editar despesa" : "Editar receita";
+
+  const inputPlaceholder = `Nome da ${isExpense ? "despesa" : "receita"}`;
+  const selectPlaceholder = `${isExpense ? "Pagar" : "Receber"} com`;
+
   return {
     accountsMap,
+    isDeleteModalOpen,
     isExpense,
     title,
     description,
@@ -128,14 +160,18 @@ export function useEditTransactionModalController(
     bankAccounts,
     formErrors: errors,
     isUpdatingTransaction,
+    isDeletingTransaction,
     hasFormError: !isEmptyObject(errors),
     hasErrorUpdateTransaction,
-    hasUpdateErrorTransaction: false,
+    hasErrorDeleteTransaction,
     isLoadingTransactionCategories,
     isRefetchingTransactionCategories,
     isLoadingBankAccounts,
     isRefetchingBankAccounts,
     handleSubmit,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteTransaction,
     register,
   };
 }

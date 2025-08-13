@@ -4,6 +4,7 @@ import type { HttpClientInterface } from "@/@types/services/HttpClientInterface"
 import type {
   TranasactionUpdate,
   TransactionCreate,
+  TransactionId,
   TransactionResponse,
   TransactionsFilters,
 } from "@/@types/transaction/Transaction";
@@ -25,7 +26,11 @@ export class TransactionService implements TransactionServiceInterface {
     return this.httpClient.post("/transactions", params);
   }
 
-  update({ id, ...params }: TranasactionUpdate): Promise<TransactionResponse> {
+  update({ id, ...params }: TranasactionUpdate): Promise<void> {
     return this.httpClient.put(`/transactions/${id}`, params);
+  }
+
+  delete(transactionId: TransactionId) {
+    return this.httpClient.delete(`/transactions/${transactionId}`);
   }
 }
