@@ -68,8 +68,8 @@ export function useEditAccountModalController() {
     try {
       await updateBankAccount({
         ...bankAccountForm,
-        initialBalance: formattedInitialBalance,
         id: accountBeingEdited!.id,
+        initialBalance: formattedInitialBalance,
       });
 
       queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
@@ -90,9 +90,9 @@ export function useEditAccountModalController() {
 
       closeEditAccountModal();
 
-      toast.success("Conta excluída com sucesso!");
+      toast.success("Conta salva com sucesso!");
     } catch {
-      toast.error("Ocorreu um erro ao excluir sua conta!.");
+      toast.error("Ocorreu um erro ao salvar sua conta!.");
     }
   }
 

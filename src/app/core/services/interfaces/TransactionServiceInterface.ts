@@ -1,4 +1,5 @@
 import type {
+  TranasactionUpdate,
   TransactionCreate,
   TransactionResponse,
   TransactionsFilters,
@@ -7,4 +8,5 @@ import type {
 export interface TransactionServiceInterface {
   getAll(filters: TransactionsFilters): Promise<TransactionResponse[]>;
   create(params: TransactionCreate): Promise<void>;
+  update(params: TranasactionUpdate): Promise<TransactionResponse>;
 }

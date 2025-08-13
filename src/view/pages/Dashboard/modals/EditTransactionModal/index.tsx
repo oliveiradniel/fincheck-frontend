@@ -39,7 +39,7 @@ export function EditTransactionModal({
     isRefetchingBankAccounts,
     handleSubmit,
     register,
-  } = useEditTransactionModalController(transaction);
+  } = useEditTransactionModalController(transaction, onClose);
 
   return (
     <Modal

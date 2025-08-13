@@ -69,12 +69,14 @@ export function useNewTransactionModalController() {
 
       closeNewTransactionModal();
 
-      const toastMessage = `${isExpense ? "Despesa" : "Receita"} cadastrada com sucesso!'`;
-
-      toast.success(toastMessage);
+      toast.success(
+        `${isExpense ? "Despesa" : "Receita"} cadastrada com sucesso!'`,
+      );
       reset();
     } catch {
-      toast.error("Ocorreu um erro ao cadastrar sua transação!");
+      toast.error(
+        `Ocorreu um erro ao cadastrar sua ${isExpense ? "despesa" : "receita"}!`,
+      );
     }
   });
 

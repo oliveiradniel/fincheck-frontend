@@ -16,7 +16,12 @@ export type TransactionsFilters = {
 
 export type TransactionType = "INCOME" | "EXPENSE";
 
-export type TransactionCreate = Omit<Transaction, "id" | "value" | "date"> & {
+export type TransactionCreate = Omit<
+  Transaction,
+  "id" | "value" | "date" | "transactionCategory"
+> & {
   value: number;
   date: string;
 };
+
+export type TranasactionUpdate = Omit<Transaction, "transactionCategory">;
