@@ -4,7 +4,7 @@ import type { AccessToken } from "@/@types/auth/AccessToken";
 import type { User } from "@/@entities/User";
 
 interface AuthContextResponse {
-  loggedUser: User;
+  loggedUser: User | undefined;
   signedIn: boolean;
   createSession(accessToken: AccessToken): void;
   clearSession(): void;

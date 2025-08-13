@@ -85,6 +85,7 @@ export function useEditTransactionModalController(
       });
 
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
 
       onClose();
 
@@ -113,6 +114,7 @@ export function useEditTransactionModalController(
     try {
       await deleteTransaction(transaction!.id);
 
+      queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
 
       onClose();

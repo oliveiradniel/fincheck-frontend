@@ -13,6 +13,7 @@ export function useGetAllBankAccountsQuery() {
     isLoading,
     isFetching,
   } = useQuery({
+    staleTime: Infinity,
     queryKey: ["bankAccounts"],
     queryFn: () => {
       return bankAccountService.getAll();

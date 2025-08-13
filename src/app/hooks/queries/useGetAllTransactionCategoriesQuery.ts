@@ -14,6 +14,7 @@ export function useGetAllTransactionCategoriesQuery() {
     isLoading,
     isFetching,
   } = useQuery({
+    staleTime: Infinity,
     queryKey: ["transactionCategories"],
     queryFn: () => {
       return transactionCategoryService.getAll();

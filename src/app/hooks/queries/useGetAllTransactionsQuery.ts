@@ -16,6 +16,7 @@ export function useGetAllTransactionsQuery(filters: TransactionsFilters) {
     isRefetching,
     refetch,
   } = useQuery({
+    staleTime: Infinity,
     queryKey: ["transactions"],
     queryFn: () => {
       return transactionService.getAll(filters);
