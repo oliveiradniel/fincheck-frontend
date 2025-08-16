@@ -43,6 +43,12 @@ export class AxiosHttpClient implements HttpClientInterface {
         toast.error("Sua sessão expirou!");
       }
 
+      if (!error.response && onClearSession) {
+        onClearSession();
+
+        toast.error("Não foi possível conectar à API. Você foi deslogado.");
+      }
+
       return Promise.reject(error);
     });
   }

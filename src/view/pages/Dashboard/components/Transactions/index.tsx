@@ -6,7 +6,7 @@ import { EmptyTransactions } from "./EmptyTransactions";
 import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
 import { FilterButton } from "./FilterButton";
 import { MonthSlidersFilter } from "./MonthSlidersFilter";
-import { TransactionList } from "./TransactionList";
+import { TransactionsList } from "./TransactionsList";
 import { FiltersModal } from "./FiltersModal";
 
 export function Transactions() {
@@ -62,7 +62,7 @@ export function Transactions() {
         {(!isLoadingTransactions || !isRefetchingTransactions) &&
           emptyTransactions && <EmptyTransactions />}
 
-        <TransactionList />
+        <TransactionsList />
       </div>
     </div>
   );

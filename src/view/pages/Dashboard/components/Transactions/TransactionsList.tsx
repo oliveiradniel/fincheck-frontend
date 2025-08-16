@@ -8,7 +8,7 @@ import { formatDate } from "@/app/utils/formatDate";
 import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
 import { EditTransactionModal } from "../../modals/EditTransactionModal";
 
-export function TransactionList() {
+export function TransactionsList() {
   const { areValuesVisible } = useDashboardContext();
 
   const {
